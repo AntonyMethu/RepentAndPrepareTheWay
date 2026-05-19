@@ -38,27 +38,7 @@
  * When the invisible sentinel at the top leaves the viewport,
  * the .scrolled class is applied to the header.
  */
-function initStickyHeader() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
 
-  // Create a 1px invisible sentinel element at the top of the page
-  const sentinel = document.createElement('div');
-  sentinel.setAttribute('aria-hidden', 'true');
-  sentinel.style.cssText =
-    'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
-  document.body.insertBefore(sentinel, document.body.firstChild);
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      // Not intersecting = user has scrolled down = add shadow
-      header.classList.toggle('scrolled', !entry.isIntersecting);
-    },
-    { threshold: 0 }
-  );
-
-  observer.observe(sentinel);
-}
 
 
 // ================================================================

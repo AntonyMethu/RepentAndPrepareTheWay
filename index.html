@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  index.html — Repent and Prepare The Way | Home Page
+  ================================================================
+  Website: repentandpreparetheway.org
+  Ministry: Ministry of Repentance and Holiness, Nakuru, Kenya
+
+  TABLE OF CONTENTS (search these labels to find sections):
+  1.  <!-- HEAD -->
+  2.  <!-- HEADER / NAVIGATION -->
+  3.  <!-- BREAKING NEWS TICKER -->
+  4.  <!-- HERO SECTION -->
+  5.  <!-- FEATURED VIDEO SECTION -->
+  6.  <!-- MIRACLES PREVIEW -->
+  7.  <!-- PDF DOCUMENTS PREVIEW -->
+  8.  <!-- PROPHECIES PREVIEW -->
+  9.  <!-- BLOG PREVIEW -->
+  10. <!-- SOCIAL MEDIA -->
+  11. <!-- CONTACT SECTION -->
+  12. <!-- SALVATION CTA -->
+  13. <!-- FOOTER -->
+
+  HOW TO UPDATE CONTENT:
+  - Navigation: search for <nav class="site-nav">
+  - Breaking news text: search for <!-- BREAKING NEWS TICKER -->
+  - Featured video: search for <!-- FEATURED VIDEO -->
+  - Phone numbers: search for <!-- CONTACT SECTION -->
+  - Blog posts: edit /data/posts.json (no HTML changes needed)
+  ================================================================
+-->
+<html lang="en">
+<head>
+  <!-- HEAD -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repent &amp; Prepare The Way — Ministry of Repentance &amp; Holiness | End Time Revival</title>
+
+  <meta name="description" content="Ministry of Repentance and Holiness — Preparing the Church for the Glorious Coming of the Messiah. Prophecies, miracles, teachings, and PDF documents from Prophet Dr. David Owuor.">
+  <meta name="keywords" content="repentance holiness, dr owuor, prophet owuor, end time revival, two witnesses, israel, rapture, second coming, healing miracles, fulfilled prophecy, kenya revival, nakuru church, repent prepare the way">
+  <meta name="author" content="Ministry of Repentance and Holiness">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.repentandpreparetheway.org/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Repent &amp; Prepare The Way — Ministry of Repentance &amp; Holiness">
+  <meta property="og:description" content="Preparing the Church for the Glorious Coming of the Messiah. Prophecies, miracles, teachings from Nakuru, Kenya.">
+  <meta property="og:url"         content="https://www.repentandpreparetheway.org/">
+  <meta property="og:image"       content="https://www.repentandpreparetheway.org/assets/images/og-image.jpg">
+  <meta property="og:site_name"   content="Repent and Prepare The Way">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Repent &amp; Prepare The Way — End Time Ministry">
+  <meta name="twitter:description" content="Preparing the Church for the Glorious Coming of the Messiah.">
+  <meta name="twitter:image"       content="https://www.repentandpreparetheway.org/assets/images/og-image.jpg">
+  <meta name="twitter:site"        content="@Prophet_DrOwuor">
+
+  <!-- Favicon -->
+  <link rel="icon"             type="image/png" href="assets/images/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" type="image/png" href="assets/images/apple-touch-icon.png">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+
+  <!-- Google Fonts: Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&family=Roboto+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="theme-color" content="#0f268c">
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ReligiousOrganization",
+    "name": "Ministry of Repentance and Holiness",
+    "alternateName": "Repent and Prepare The Way",
+    "url": "https://www.repentandpreparetheway.org",
+    "description": "End time ministry preparing the church for the return of the Messiah Jesus Christ",
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Nakuru, Kenya"
+    },
+    "areaServed": "Worldwide",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+254-715-276091",
+      "contactType": "main line"
+    },
+    "sameAs": [
+      "https://x.com/Prophet_DrOwuor",
+      "https://facebook.com/ProphetDrDavidOwuor",
+      "https://www.youtube.com/@repentpreparetheway"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- Accessibility: skip navigation -->
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+
+  <!-- ================================================================
+       HEADER / NAVIGATION
+       ================================================================
+       Ministry site navigation is more extensive than the radio site.
+       Cross-link to Radio site is styled in YELLOW (vs turquoise on
+       the radio site) to visually differentiate the two.
+
+       HOW TO ADD A NEW PAGE:
+       Copy an <a class="nav-link"> element and update href and text.
+       For a dropdown: wrap in <div class="nav-dropdown"> and add
+       a <div class="dropdown-menu"> with .dropdown-item anchors.
+       ================================================================ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="site-logo" aria-label="Repent and Prepare The Way — Home">
+        <img
+          src="assets/images/logo.png"
+          alt="Ministry of Repentance and Holiness — Dove over globe logo"
+          width="52"
+          height="52"
+          loading="eager"
+        >
+        <div class="site-logo-text">
+          <span class="logo-line1">Repentance &amp; Holiness</span>
+          <span class="logo-line2">Prepare The Way</span>
+        </div>
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Main navigation -->
+      <nav class="site-nav" id="mainNav" aria-label="Main navigation">
+
+        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+
+        <a href="pages/about.html" class="nav-link">About Us</a>
+
+        <!-- Teachings dropdown -->
+        <div class="nav-dropdown">
+          <a href="pages/teachings.html" class="nav-link">Teachings</a>
+          <div class="dropdown-menu">
+            <a href="https://open.spotify.com/show/2U0AsCwsoPnNwtDMQ8j775" class="dropdown-item" target="_blank" rel="noopener">
+              <span>🎵</span> Audio (Spotify)
+            </a>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="dropdown-item" target="_blank" rel="noopener">
+              <span>📺</span> Video (YouTube)
+            </a>
+          </div>
+        </div>
+
+        <a href="pages/prophecies.html" class="nav-link">Prophecies</a>
+
+        <a href="pages/miracles.html" class="nav-link">Miracles</a>
+
+        <a href="pages/documents.html" class="nav-link">Documents</a>
+
+        <a href="pages/blog.html" class="nav-link">Blog</a>
+
+        <!-- More pages dropdown -->
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">More</a>
+          <div class="dropdown-menu">
+            <a href="pages/salvation.html" class="dropdown-item"><span>🙏</span> Salvation Prayer</a>
+            <a href="pages/gallery.html"   class="dropdown-item"><span>📷</span> Photo Gallery</a>
+            <a href="pages/translations.html" class="dropdown-item"><span>🌐</span> Translations</a>
+          </div>
+        </div>
+
+        <!-- ── SISTER SITE LINK — styled yellow on this site ── -->
+        <a href="https://www.jesusislordradio.info/"
+           class="nav-link sister-site"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Visit Jesus is LORD Radio — Live Broadcast">
+          📻 Jesus is LORD Radio
+        </a>
+
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ================================================================
+       BREAKING NEWS TICKER
+       ================================================================
+       HOW TO UPDATE:
+       Edit the .ticker-item span elements below.
+       The JS in app.js duplicates them for seamless looping.
+       ================================================================ -->
+  <div class="news-ticker" role="marquee" aria-label="Breaking news">
+    <div class="ticker-label">Breaking News</div>
+    <div class="ticker-track" id="tickerTrack">
+
+      <span class="ticker-item">
+        🔥 <a href="https://www.youtube.com/watch?v=LXN45HBTGjo" target="_blank" rel="noopener">
+          GOD MOST HIGH VISITS HIS TWO DREADFUL PROPHETS IN THICK DARK CLOUD — Watch →
+        </a>
+      </span>
+
+      <span class="ticker-item">
+        🙏 NEW DOCUMENTARY NOW AVAILABLE — <a href="https://www.youtube.com/@repentpreparetheway" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </span>
+
+      <span class="ticker-item">
+        ⚡ PROPHECY FULFILLED: <a href="pages/prophecies.html" target="_blank" rel="noopener">
+          View the full archive of 150+ fulfilled prophecies →
+        </a>
+      </span>
+
+      <span class="ticker-item">
+        📻 Listen LIVE: <a href="https://www.jesusislordradio.info/" target="_blank" rel="noopener">
+          Jesus is LORD Radio — Broadcasting from Nakuru, Kenya →
+        </a>
+      </span>
+
+      <span class="ticker-item">
+        📞 Contact the Ministry: <strong>(+254) 715 276 091</strong>
+        &nbsp;|&nbsp; <strong>(+254) 708 412 344</strong>
+      </span>
+
+      <span class="ticker-item">
+        🌐 Follow on X: <a href="https://x.com/Prophet_DrOwuor" target="_blank" rel="noopener">@Prophet_DrOwuor</a>
+        &nbsp;·&nbsp; Facebook: <a href="https://facebook.com/ProphetDrDavidOwuor" target="_blank" rel="noopener">ProphetDrDavidOwuor</a>
+      </span>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
+  <main id="main-content">
+
+
+    <!-- ==============================================================
+         HERO SECTION
+         ============================================================== -->
+    <section class="hero" aria-labelledby="heroHeading">
+
+      <div class="hero-badge">
+        <span aria-hidden="true">⛪</span>
+        Ministry of Repentance &amp; Holiness — Nakuru, Kenya
+      </div>
+
+      <h1 class="hero-title" id="heroHeading">
+        <span class="highlight-teal">Repent</span> &amp;<br>
+        Prepare<br>
+        The Way
+      </h1>
+
+      <p class="hero-subtitle">
+        The Ministry's key mission is to prepare the Church for the
+        <strong style="color:var(--color-yellow);">Glorious Coming of the Messiah.</strong><br>
+        Proclaiming repentance, holiness, and the fear of the LORD to all nations.
+      </p>
+
+      <blockquote class="hero-scripture" cite="Isaiah 40:3">
+        "A voice of one calling: 'In the wilderness prepare the way for the LORD;
+        make straight in the desert a highway for our GOD.'"
+        <footer>— Isaiah 40:3</footer>
+      </blockquote>
+
+      <div class="hero-actions">
+        <a href="pages/salvation.html" class="btn-yellow">🙏 Salvation Prayer</a>
+        <a href="pages/prophecies.html" class="btn-primary">🔮 Fulfilled Prophecies</a>
+        <a href="pages/documents.html" class="btn-secondary">📄 PDF Documents</a>
+      </div>
+
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         FEATURED VIDEO SECTION
+         ==============================================================
+         HOW TO UPDATE:
+         Change the data-youtube-id attribute to a new YouTube video ID.
+         The ID is the 11-character code in the YouTube URL after "v=".
+         Example: youtube.com/watch?v=LXN45HBTGjo → ID: LXN45HBTGjo
+         ============================================================== -->
+    <section class="section-pad" aria-labelledby="featuredHeading" id="featured-video">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="featuredHeading">
+            🎬 <span class="accent-yellow">Featured</span> Documentary
+          </h2>
+          <p style="color:var(--color-text-secondary);">
+            Watch the powerful testimony of GOD's visitation — His glory manifested before thousands
+          </p>
+        </div>
+
+        <!-- Featured video — facade pattern (no iframe until click) -->
+        <!-- FEATURED VIDEO — change data-youtube-id to update -->
+        <div
+          style="max-width:800px;margin:0 auto;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--glass-border-accent);box-shadow:var(--shadow-lg),var(--shadow-glow);"
+          class="reveal"
+        >
+          <div
+            class="youtube-facade"
+            data-youtube-id="LXN45HBTGjo"
+            role="button"
+            tabindex="0"
+            aria-label="Watch: GOD MOST HIGH VISITING HIS TWO PROPHETS IN THICK DARK CLOUD"
+            style="position:relative;width:100%;aspect-ratio:16/9;cursor:pointer;background:var(--color-primary-dark);"
+          >
+            <!-- Thumbnail image — loads only the JPG, not the whole YouTube iframe -->
+            <img
+              src="https://i.ytimg.com/vi/LXN45HBTGjo/maxresdefault.jpg"
+              alt="GOD MOST HIGH VISITING HIS TWO PROPHETS IN THICK DARK CLOUD — Watch Documentary"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+              onerror="this.src='https://i.ytimg.com/vi/LXN45HBTGjo/hqdefault.jpg'"
+            >
+
+            <!-- Play button overlay -->
+            <div style="
+              position:absolute;top:0;left:0;width:100%;height:100%;
+              display:flex;align-items:center;justify-content:center;
+              flex-direction:column;gap:16px;
+              background:rgba(0,0,0,0.3);
+            ">
+              <div style="
+                width:80px;height:80px;border-radius:50%;
+                background:rgba(255,0,0,0.9);
+                display:flex;align-items:center;justify-content:center;
+                font-size:2rem;color:#fff;
+                box-shadow:0 0 40px rgba(255,0,0,0.4);
+                transition:transform 0.2s;
+              " class="yt-play-btn">▶</div>
+              <div style="
+                background:rgba(0,0,0,0.7);
+                padding:12px 24px;border-radius:var(--radius-full);
+                font-family:var(--font-heading);font-size:0.9rem;font-weight:700;
+                color:#fff;text-align:center;letter-spacing:1px;
+                text-transform:uppercase;
+                border:1px solid rgba(255,255,255,0.2);
+              ">
+                🎬 Watch New Documentary
+              </div>
+            </div>
+          </div>
+
+          <!-- Caption below video -->
+          <div style="padding:var(--space-lg) var(--space-xl);background:rgba(0,0,0,0.3);">
+            <h3 style="font-size:1.1rem;color:var(--color-white);margin-bottom:var(--space-sm);">
+              GOD MOST HIGH VISITING HIS TWO DREADFUL PROPHETS IN THICK DARK CLOUD
+            </h3>
+            <p style="font-size:0.875rem;color:var(--color-text-secondary);">
+              A powerful documentary of the glory of GOD manifested before thousands of witnesses.
+              His Majesty descended in His thick dark cloud — confirming the prophetic word that had been spoken.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         MIRACLES PREVIEW SECTION
+         ==============================================================
+         Shows 4 miracle categories. Full list is on pages/miracles.html
+         HOW TO UPDATE: Change YouTube video IDs in data-youtube-id attributes
+         ============================================================== -->
+    <section class="section-pad" aria-labelledby="miraclesHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="miraclesHeading">
+            ✨ <span class="accent-turquoise">Miracles</span> &amp; Healings
+          </h2>
+          <p style="color:var(--color-text-secondary);">
+            GOD confirms His Word with signs and wonders. The blind see, the lame walk,
+            the dead are raised — the same Spirit that raised Jesus Christ from the dead.
+          </p>
+        </div>
+
+        <div class="miracles-grid reveal-stagger">
+
+          <!-- Miracle 1: Cripples Walk -->
+          <div class="miracle-card reveal">
+            <div
+              class="miracle-video youtube-facade"
+              data-youtube-id="CRIPPLES_VIDEO_ID"
+              role="button"
+              tabindex="0"
+              aria-label="Watch: Cripples Walk at the Crusade"
+            >
+              <div class="play-overlay" aria-hidden="true">
+                <div class="play-btn-circle">▶</div>
+              </div>
+              <!-- Placeholder when no thumbnail available -->
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));display:flex;align-items:center;justify-content:center;font-size:3rem;">🦽</div>
+            </div>
+            <div class="miracle-body">
+              <div class="miracle-tag">Miracle — Physical Healing</div>
+              <h3 class="miracle-title">Cripples Walk at the Crusade</h3>
+              <p class="miracle-desc">The power of the Holy Spirit heals those who have not walked for years — witnessed by thousands.</p>
+              <a href="pages/miracles.html#cripples" class="blog-card-readmore" style="display:inline-flex;margin-top:var(--space-md);">Read testimonies →</a>
+            </div>
+          </div>
+
+          <!-- Miracle 2: Blind Eyes Opened -->
+          <div class="miracle-card reveal">
+            <div
+              class="miracle-video youtube-facade"
+              data-youtube-id="BLIND_VIDEO_ID"
+              role="button"
+              tabindex="0"
+              aria-label="Watch: Blind Eyes Opened"
+            >
+              <div class="play-overlay" aria-hidden="true">
+                <div class="play-btn-circle">▶</div>
+              </div>
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));display:flex;align-items:center;justify-content:center;font-size:3rem;">👁️</div>
+            </div>
+            <div class="miracle-body">
+              <div class="miracle-tag">Miracle — Sight Restored</div>
+              <h3 class="miracle-title">Blind Eyes Opened</h3>
+              <p class="miracle-desc">Vision restored to the blind — medically confirmed healings that defy natural explanation.</p>
+              <a href="pages/miracles.html#blind" class="blog-card-readmore" style="display:inline-flex;margin-top:var(--space-md);">Read testimonies →</a>
+            </div>
+          </div>
+
+          <!-- Miracle 3: HIV/AIDS Healed -->
+          <div class="miracle-card reveal">
+            <div
+              class="miracle-video youtube-facade"
+              data-youtube-id="HIV_VIDEO_ID"
+              role="button"
+              tabindex="0"
+              aria-label="Watch: HIV/AIDS Healed"
+            >
+              <div class="play-overlay" aria-hidden="true">
+                <div class="play-btn-circle">▶</div>
+              </div>
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));display:flex;align-items:center;justify-content:center;font-size:3rem;">✨</div>
+            </div>
+            <div class="miracle-body">
+              <div class="miracle-tag">Miracle — Disease Healed</div>
+              <h3 class="miracle-title">HIV/AIDS Healed</h3>
+              <p class="miracle-desc">Medical institutions confirm patients healed of HIV/AIDS — negative tests after prayer at the crusade.</p>
+              <a href="pages/miracles.html#hiv" class="blog-card-readmore" style="display:inline-flex;margin-top:var(--space-md);">Read testimonies →</a>
+            </div>
+          </div>
+
+          <!-- Miracle 4: Resurrection -->
+          <div class="miracle-card reveal">
+            <div
+              class="miracle-video youtube-facade"
+              data-youtube-id="RESURRECTION_VIDEO_ID"
+              role="button"
+              tabindex="0"
+              aria-label="Watch: Resurrection from the Dead — Mama Rosa"
+            >
+              <div class="play-overlay" aria-hidden="true">
+                <div class="play-btn-circle">▶</div>
+              </div>
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));display:flex;align-items:center;justify-content:center;font-size:3rem;">🕊️</div>
+            </div>
+            <div class="miracle-body">
+              <div class="miracle-tag">Miracle — Resurrection</div>
+              <h3 class="miracle-title">Resurrection from the Dead</h3>
+              <p class="miracle-desc">Mama Rosa and others raised from the dead — multiple witnesses and video documentation.</p>
+              <a href="pages/miracles.html#resurrection" class="blog-card-readmore" style="display:inline-flex;margin-top:var(--space-md);">Read testimonies →</a>
+            </div>
+          </div>
+
+        </div><!-- /miracles-grid -->
+
+        <div class="text-center" style="margin-top:var(--space-xl);">
+          <a href="pages/miracles.html" class="btn-primary">
+            ✨ View All Miracles &amp; Healings →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         PDF DOCUMENTS PREVIEW
+         ==============================================================
+         Shows 6 of the 13 available PDFs. Full list at pages/documents.html
+         HOW TO UPDATE PDF LINKS:
+         Find the href attributes and replace with actual PDF URLs.
+         If hosting PDFs yourself, place them in /assets/pdfs/ folder.
+         ============================================================== -->
+    <section class="section-pad" aria-labelledby="docsHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="docsHeading">
+            📄 PDF <span class="accent-turquoise">Documents</span>
+          </h2>
+          <p style="color:var(--color-text-secondary);">
+            Prophetic writings, visions, and teachings — available as free PDF downloads.
+            13 documents in total.
+          </p>
+        </div>
+
+        <!-- Show 6 documents in preview — rest on full page -->
+        <div class="docs-grid reveal-stagger" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+
+          <!-- Document 1 -->
+          <!-- HOW TO UPDATE: Change the href to the actual PDF file path or URL -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">The CLOUD Of GOD's Glory</h3>
+            <p class="doc-card-desc">A prophetic account of the visible manifestation of the glory cloud of GOD.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/cloud-of-gods-glory.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Document 2 -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">The Garment For This Hour</h3>
+            <p class="doc-card-desc">What GOD requires of His Church in this final hour before the Messiah's return.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/garment-for-this-hour.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Document 3 -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">Vision of the Rapture of the Dead</h3>
+            <p class="doc-card-desc">A detailed vision of the coming rapture — the resurrection of the dead in Christ.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/vision-rapture-of-the-dead.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Document 4 -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">Ebola Prophecy — Spoken Nov 2009, Fulfilled 2014</h3>
+            <p class="doc-card-desc">The prophet warned of the Ebola outbreak five years before it happened. Verified record.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/ebola-prophecy.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Document 5 -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">PROPHECY ALERT! The Messiah is Coming</h3>
+            <p class="doc-card-desc">An urgent call to all nations: repent, for the return of the Lord Jesus Christ is at hand.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/messiah-is-coming.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Document 6 -->
+          <div class="doc-card reveal">
+            <div class="doc-card-icon" aria-hidden="true">📄</div>
+            <h3 class="doc-card-title">His Nail Pierced Hands</h3>
+            <p class="doc-card-desc">A powerful vision of the pierced hands of Jesus Christ — a call to repentance and holiness.</p>
+            <div class="doc-card-actions">
+              <a href="assets/pdfs/nail-pierced-hands.pdf" class="btn-download" target="_blank" rel="noopener" download>
+                ⬇ Download PDF
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /docs-grid -->
+
+        <div class="text-center" style="margin-top:var(--space-xl);">
+          <a href="pages/documents.html" class="btn-secondary">
+            📄 View All 13 Documents →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         PROPHECIES FULFILLED PREVIEW
+         ==============================================================
+         Shows 6 cards from the 150+ archive.
+         Full list at pages/prophecies.html
+         HOW TO ADD PROPHECIES: See pages/prophecies.html
+         ============================================================== -->
+    <section class="section-pad" aria-labelledby="propheciesHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="propheciesHeading">
+            🔮 Fulfilled <span class="accent-yellow">Prophecies</span>
+          </h2>
+          <p style="color:var(--color-text-secondary);">
+            Over 150 prophecies spoken before they happened — earthquakes, wars, floods, political events,
+            healings, and celestial signs. Each one documented and verified.
+          </p>
+        </div>
+
+        <!-- Stat counters row -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-md);max-width:700px;margin:0 auto var(--space-2xl);text-align:center;" class="reveal-stagger">
+          <div class="feature-card reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-xl);">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--color-turquoise);font-family:var(--font-heading);">150+</div>
+            <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);margin-top:4px;">Fulfilled Prophecies</div>
+          </div>
+          <div class="feature-card reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-xl);">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--color-yellow);font-family:var(--font-heading);">15+</div>
+            <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);margin-top:4px;">Years of Records</div>
+          </div>
+          <div class="feature-card reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-xl);">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--color-turquoise);font-family:var(--font-heading);">🌍</div>
+            <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);margin-top:4px;">All Nations</div>
+          </div>
+        </div>
+
+        <!-- Sample prophecy cards (6 preview items) -->
+        <!-- HOW TO UPDATE: Edit the .prophecy-card items below or go to pages/prophecies.html -->
+        <div class="prophecy-grid reveal-stagger">
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">1</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Great Earthquake Strikes — Named Region &amp; Severity Prophesied</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">Earthquake</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="https://www.youtube.com/" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+            </div>
+          </div>
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">2</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Major Flood Disaster — Country and Scale Prophesied Before Event</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">Flood</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="https://www.youtube.com/" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+            </div>
+          </div>
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">3</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Aviation Distress — Aircraft Emergency Prophesied Days Before</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">Aviation</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="https://www.youtube.com/" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+            </div>
+          </div>
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">4</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Ebola Outbreak — November 2009 Prophecy Fulfilled in 2014</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">Disease</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="pages/documents.html" class="prophecy-link">Read PDF →</a>
+            </div>
+          </div>
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">5</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Political Upheaval — Specific Nation &amp; Leadership Change Prophesied</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">Political</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="https://www.youtube.com/" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+            </div>
+          </div>
+
+          <div class="prophecy-card reveal">
+            <div class="prophecy-number" aria-hidden="true">6</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Great War in the Middle East — Israel &amp; Iran Conflict Alert</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">War / Conflict</span>
+                <span class="prophecy-status pending">⏳ Watch</span>
+              </div>
+              <a href="pages/prophecies.html#upcoming" class="prophecy-link">View Alert →</a>
+            </div>
+          </div>
+
+        </div><!-- /prophecy-grid -->
+
+        <div class="text-center" style="margin-top:var(--space-xl);">
+          <a href="pages/prophecies.html" class="btn-primary">
+            🔮 View All 150+ Prophecies →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         BLOG PREVIEW SECTION
+         ==============================================================
+         Populated automatically by blog.js reading /data/posts.json.
+         No HTML changes needed to add new posts — just update the JSON.
+         ============================================================== -->
+    <section class="section-pad" aria-labelledby="blogHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="blogHeading">
+            📝 Ministry <span class="accent-turquoise">Blog</span>
+          </h2>
+          <p style="color:var(--color-text-secondary);">
+            Updates, teachings, prophecy news, and testimonies from the Ministry
+          </p>
+        </div>
+
+        <!-- Blog cards populated by blog.js -->
+        <div class="blog-grid" id="blogGrid" aria-live="polite">
+          <div class="spinner" id="blogLoader" role="status" aria-label="Loading blog posts"></div>
+        </div>
+
+        <div class="text-center" style="margin-top:var(--space-xl);">
+          <a href="pages/blog.html" class="btn-secondary">View All Posts →</a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         SOCIAL MEDIA SECTION
+         ==============================================================
+         HOW TO UPDATE: Change href values if handles change.
+         ============================================================== -->
+    <section class="social-section" aria-labelledby="socialHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="socialHeading">Follow the <span class="accent-turquoise">Ministry</span></h2>
+          <p style="color:var(--color-text-secondary);">Stay connected for updates, testimonies, and live events</p>
+        </div>
+
+        <div class="social-links reveal-stagger">
+
+          <a
+            href="https://x.com/Prophet_DrOwuor"
+            class="social-link reveal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow on X (Twitter)"
+          >
+            <span class="social-icon" aria-hidden="true">𝕏</span>
+            <span class="social-name">X / Twitter</span>
+            <span class="social-handle">@Prophet_DrOwuor</span>
+          </a>
+
+          <a
+            href="https://facebook.com/ProphetDrDavidOwuor"
+            class="social-link reveal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow on Facebook"
+          >
+            <span class="social-icon" aria-hidden="true">📘</span>
+            <span class="social-name">Facebook</span>
+            <span class="social-handle">ProphetDrDavidOwuor</span>
+          </a>
+
+          <a
+            href="https://www.youtube.com/@repentpreparetheway"
+            class="social-link reveal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Subscribe on YouTube"
+          >
+            <span class="social-icon" aria-hidden="true">📺</span>
+            <span class="social-name">YouTube</span>
+            <span class="social-handle">@repentpreparetheway</span>
+          </a>
+
+          <a
+            href="https://www.jesusislordradio.info/"
+            class="social-link reveal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Listen on Jesus is LORD Radio"
+            style="border-color:rgba(255,255,0,0.3);background:rgba(255,255,0,0.06);"
+          >
+            <span class="social-icon" aria-hidden="true">📻</span>
+            <span class="social-name" style="color:var(--color-yellow);">Live Radio</span>
+            <span class="social-handle" style="color:var(--color-yellow);">jesusislordradio.info</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         SALVATION PRAYER CTA
+         ============================================================== -->
+    <section class="salvation-section" aria-labelledby="salvationHeading">
+      <div class="container">
+        <div class="salvation-card reveal">
+          <div style="font-size:3rem;margin-bottom:var(--space-md);" aria-hidden="true">🙏</div>
+          <h2 id="salvationHeading">Are You Ready?</h2>
+          <p>
+            The Messiah is coming. Now is the time to repent, give your life to Jesus Christ,
+            and be part of the glorious Bride that is being prepared for His return.
+          </p>
+          <p>
+            If you have never accepted Jesus Christ as your LORD and Saviour, or if you want
+            to rededicate your life to Him, pray the Salvation Prayer now.
+          </p>
+          <blockquote class="scripture-verse" cite="Romans 10:9" style="text-align:left;margin:var(--space-lg) 0;">
+            "If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that
+            GOD raised him from the dead, you will be saved."
+            <cite>— Romans 10:9</cite>
+          </blockquote>
+          <a href="pages/salvation.html" class="btn-yellow" style="font-size:1rem;padding:16px 40px;">
+            🙏 Pray the Salvation Prayer Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="section-divider"></div>
+
+
+    <!-- ==============================================================
+         CONTACT SECTION
+         ==============================================================
+         HOW TO UPDATE: Change phone numbers and email below.
+         ============================================================== -->
+    <section class="contact-section" aria-labelledby="contactHeading">
+      <div class="container">
+
+        <div class="section-title reveal">
+          <h2 id="contactHeading">Contact the <span class="accent-turquoise">Ministry</span></h2>
+          <p style="color:var(--color-text-secondary);">Nakuru, Kenya — Serving the World</p>
+        </div>
+
+        <div class="contact-grid reveal-stagger">
+
+          <div class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">📞</span>
+            <div class="contact-label">Main Line</div>
+            <div class="contact-value">
+              <a href="tel:+254715276091">(+254) 715 276 091</a>
+            </div>
+          </div>
+
+          <div class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">📞</span>
+            <div class="contact-label">Second Line</div>
+            <div class="contact-value">
+              <a href="tel:+254708412344">(+254) 708 412 344</a>
+            </div>
+          </div>
+
+          <div class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">📻</span>
+            <div class="contact-label">Live Radio</div>
+            <div class="contact-value">
+              <a href="https://www.jesusislordradio.info/" target="_blank" rel="noopener">jesusislordradio.info</a>
+            </div>
+          </div>
+
+          <div class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">📍</span>
+            <div class="contact-label">Location</div>
+            <div class="contact-value" style="font-size:0.9rem;">Nakuru, Kenya</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+  </main>
+
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/images/logo.png" alt="Ministry of Repentance and Holiness" width="48" height="48">
+          <div>
+            <div style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--color-white);">Repentance &amp; Holiness</div>
+            <div style="font-size:0.8rem;color:var(--color-turquoise);letter-spacing:1px;">Preparing The Way</div>
+          </div>
+        </div>
+        <p>
+          Ministry of Repentance and Holiness — preparing the Church
+          for the Glorious Coming of the Messiah.
+          Nakuru, Kenya.
+        </p>
+        <blockquote class="scripture-verse" style="font-size:0.85rem;margin-top:var(--space-md);">
+          "A voice of one calling: prepare the way for the LORD."
+          <cite>— Isaiah 40:3</cite>
+        </blockquote>
+
+        <!-- Prominent Radio sister-site link -->
+        <a href="https://www.jesusislordradio.info/"
+           class="footer-sister-link"
+           target="_blank"
+           rel="noopener noreferrer">
+          📻 Visit: JesusIsLordRadio.info →
+        </a>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h3 class="footer-heading">Pages</h3>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="pages/about.html">About Us</a>
+          <a href="pages/teachings.html">Teachings</a>
+          <a href="pages/prophecies.html">Prophecies (150+)</a>
+          <a href="pages/miracles.html">Miracles</a>
+          <a href="pages/documents.html">PDF Documents</a>
+          <a href="pages/salvation.html">Salvation Prayer</a>
+          <a href="pages/gallery.html">Photo Gallery</a>
+          <a href="pages/translations.html">Translations</a>
+          <a href="pages/blog.html">Blog</a>
+        </nav>
+      </div>
+
+      <!-- Contact + Social -->
+      <div>
+        <h3 class="footer-heading">Contact</h3>
+        <div class="footer-links">
+          <a href="tel:+254715276091">📞 (+254) 715 276 091</a>
+          <a href="tel:+254708412344">📞 (+254) 708 412 344</a>
+        </div>
+        <div class="footer-social" style="margin-top:var(--space-lg);" aria-label="Social media">
+          <a href="https://x.com/Prophet_DrOwuor" target="_blank" rel="noopener" aria-label="X / Twitter">𝕏</a>
+          <a href="https://facebook.com/ProphetDrDavidOwuor" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+          <a href="https://www.youtube.com/@repentpreparetheway" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+
+    </div><!-- /footer-inner -->
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        &copy; <span id="copyrightYear"></span> Ministry of Repentance and Holiness.
+        All rights reserved. | Nakuru, Kenya.
+      </p>
+      <p style="font-size:0.75rem;color:var(--color-text-muted);">
+        Isaiah 40:3 — "Prepare the way for the LORD"
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
+  <script src="js/app.js"></script>
+  <script src="js/blog.js"></script>
+
+  <script>
+    // Copyright year — always current
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

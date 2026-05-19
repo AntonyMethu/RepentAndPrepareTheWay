@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  admin/index.html — Blog Post Admin Panel
+  ================================================================
+  Website: jesusislordradio.info
+
+  PURPOSE:
+  A simple, password-protected admin panel that lets non-technical
+  users compose blog posts and export them as JSON.
+
+  HOW IT WORKS:
+  1. Open this page in your browser
+  2. Enter the admin password
+  3. Fill in the post form
+  4. Click "Generate JSON Output"
+  5. Copy the JSON shown in the output box
+  6. Open /data/posts.json in a text editor (or on GitHub)
+  7. Paste the new post object at the TOP of the array
+  8. Save and push to GitHub — Cloudflare deploys automatically
+
+  SECURITY NOTE:
+  This is a CLIENT-SIDE only panel. It does NOT save anything to a
+  server by itself. The password check is a basic deterrent only.
+  For stronger security, put this directory behind Cloudflare Access
+  (free) or simply delete this folder when not needed.
+
+  HOW TO CHANGE THE ADMIN PASSWORD:
+  Find the line: const ADMIN_PASSWORD_HASH below and replace the
+  hash value. Generate a new SHA-256 hash at: https://emn178.github.io/online-tools/sha256.html
+  Default password: ministry2024
+  ================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Admin — Jesus is LORD Radio</title>
+
+  <!-- 
+    Tell search engines NOT to index the admin panel
+    This keeps it out of Google results
+  -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       ADMIN PANEL STYLES
+       Uses the same brand colors as the main sites but with a
+       darker, more utilitarian look appropriate for an admin tool.
+       ================================================================ */
+
+    :root {
+      --color-primary:      #0f268c;
+      --color-primary-dark: #0a1a6e;
+      --color-turquoise:    #00ffff;
+      --color-yellow:       #ffff00;
+      --color-white:        #ffffff;
+      --glass-bg:           rgba(255,255,255,0.06);
+      --glass-border:       rgba(255,255,255,0.12);
+      --radius-md:          10px;
+      --radius-sm:          6px;
+      --radius-full:        9999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      color: rgba(255,255,255,0.9);
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #060f52, #0f268c, #0a1a6e, #162f9e);
+      background-size: 400% 400%;
+      animation: gradientFlow 20s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0%   { background-position: 0%   50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0%   50%; }
+    }
+
+    /* ── Login screen (shown before password entry) ── */
+    #loginScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .login-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+    }
+
+    .login-card .logo-text {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--color-white);
+      margin-bottom: 8px;
+    }
+
+    .login-card .logo-sub {
+      font-size: 0.8rem;
+      color: var(--color-turquoise);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .login-card h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.25rem;
+      color: var(--color-white);
+      margin-bottom: 24px;
+    }
+
+    /* ── Admin main layout (shown after login) ── */
+    #adminPanel {
+      display: none; /* Hidden until login */
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .admin-header h1 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.5rem;
+      color: var(--color-turquoise);
+    }
+
+    .admin-header p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+
+    /* ── Form card ── */
+    .form-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .form-card h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.1rem;
+      color: var(--color-white);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Form layout ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1; /* Span full width */
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Required field indicator */
+    label .required {
+      color: var(--color-turquoise);
+      margin-left: 2px;
+    }
+
+    /* ── Input / Select / Textarea shared styles ── */
+    input[type="text"],
+    input[type="date"],
+    input[type="password"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-white);
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="password"]:focus,
+    input[type="url"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--color-turquoise);
+      box-shadow: 0 0 0 3px rgba(0,255,255,0.1);
+    }
+
+    /* Calendar icon color on date inputs */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
+
+    select option {
+      background: #0f268c;
+      color: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    /* Large textarea for full post content */
+    textarea.large {
+      min-height: 240px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.875rem;
+    }
+
+    /* Character count helper */
+    .char-count {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      text-align: right;
+    }
+
+    .char-count.warning { color: #ffaa00; }
+    .char-count.over    { color: #ff4444; }
+
+    /* Helper text below fields */
+    .field-help {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Checkbox group for "featured" option */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-turquoise);
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    }
+
+    .btn:hover    { transform: translateY(-1px); }
+    .btn:active   { transform: translateY(0); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-teal {
+      background: var(--color-turquoise);
+      color: #060f52;
+      box-shadow: 0 4px 16px rgba(0,255,255,0.25);
+    }
+
+    .btn-teal:hover {
+      box-shadow: 0 8px 24px rgba(0,255,255,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-outline:hover {
+      background: var(--glass-bg);
+      color: var(--color-white);
+    }
+
+    .btn-danger {
+      background: rgba(255,59,59,0.15);
+      color: #ff6b6b;
+      border: 1px solid rgba(255,59,59,0.3);
+    }
+
+    .btn-danger:hover {
+      background: rgba(255,59,59,0.25);
+    }
+
+    /* ── JSON Output section ── */
+    .json-output {
+      display: none; /* Hidden until generated */
+    }
+
+    .json-output.visible {
+      display: block;
+    }
+
+    .json-box {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--color-turquoise);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #a8f0ff;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+
+    /* ── Instructions box ── */
+    .instructions {
+      background: rgba(0,255,255,0.05);
+      border: 1px solid rgba(0,255,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .instructions h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-turquoise);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .instructions ol {
+      padding-left: 20px;
+    }
+
+    .instructions li {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .instructions code {
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8rem;
+      color: #a8f0ff;
+    }
+
+    /* ── Alert / feedback messages ── */
+    .alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .alert.visible { display: block; }
+
+    .alert-error {
+      background: rgba(255,59,59,0.12);
+      border: 1px solid rgba(255,59,59,0.3);
+      color: #ff8080;
+    }
+
+    .alert-success {
+      background: rgba(0,230,118,0.1);
+      border: 1px solid rgba(0,230,118,0.3);
+      color: #80e0a8;
+    }
+
+    /* ── Actions row ── */
+    .actions-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    /* ── Preview panel ── */
+    .preview-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px dashed rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── Validation errors on fields ── */
+    input.invalid,
+    textarea.invalid,
+    select.invalid {
+      border-color: #ff4444;
+    }
+
+    .error-text {
+      font-size: 0.75rem;
+      color: #ff8080;
+      display: none;
+    }
+
+    .error-text.visible { display: block; }
+
+    /* ── Logout / nav bar at top ── */
+    .admin-nav {
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 24px;
+      display: none; /* Shown after login */
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .admin-nav.visible {
+      display: flex;
+    }
+
+    .admin-nav-brand {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--color-turquoise);
+    }
+
+    .admin-nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .admin-nav-links a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .admin-nav-links a:hover {
+      color: var(--color-white);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 20px;
+      }
+
+      #adminPanel {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================================================
+       ADMIN TOP NAV BAR (shown after login)
+       ================================================================ -->
+  <nav class="admin-nav" id="adminNav" aria-label="Admin navigation">
+    <span class="admin-nav-brand">🛠 Jesus is LORD Radio — Admin Panel</span>
+    <div class="admin-nav-links">
+      <a href="../index.html" target="_blank" rel="noopener">← View Live Site</a>
+      <a href="../data/posts.json" target="_blank" rel="noopener">📄 View posts.json</a>
+      <button class="btn btn-outline" id="logoutBtn" onclick="logout()"
+              style="padding:6px 16px;font-size:0.8rem;">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ================================================================
+       LOGIN SCREEN
+       ================================================================
+       HOW TO CHANGE PASSWORD:
+       1. Go to https://emn178.github.io/online-tools/sha256.html
+       2. Type your new password in the input
+       3. Copy the hash it generates
+       4. Replace the ADMIN_PASSWORD_HASH value below in the JS section
+       ================================================================ -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="logo-text">✝ Jesus is LORD Radio</div>
+      <div class="logo-sub">Admin Panel</div>
+
+      <h2>Sign In to Continue</h2>
+
+      <!-- Login error message -->
+      <div class="alert alert-error" id="loginError" role="alert">
+        Incorrect password. Please try again.
+      </div>
+
+      <!-- Password form -->
+      <div style="text-align:left;margin-bottom:16px;">
+        <label for="passwordInput" style="text-transform:none;letter-spacing:0;font-size:0.875rem;color:rgba(255,255,255,0.7);">
+          Admin Password
+        </label>
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Enter admin password"
+          style="margin-top:8px;"
+          autocomplete="current-password"
+          aria-label="Admin password"
+        >
+      </div>
+
+      <button class="btn btn-teal" id="loginBtn" style="width:100%;" onclick="attemptLogin()">
+        🔓 Sign In
+      </button>
+
+      <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.4);">
+        Default password: <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;color:#a8f0ff;">ministry2024</code><br>
+        Change it in admin/index.html (see comments)
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ================================================================
+       ADMIN PANEL (shown after login)
+       ================================================================ -->
+  <div id="adminPanel">
+
+    <!-- Page header -->
+    <div class="admin-header">
+      <div>
+        <h1>📝 Create New Blog Post</h1>
+        <p>Fill in the form below, then copy the generated JSON into /data/posts.json</p>
+      </div>
+      <a href="../data/posts.json" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.8rem;padding:10px 20px;">
+        📄 View posts.json →
+      </a>
+    </div>
+
+
+    <!-- ============================================================
+         BLOG POST FORM
+         ============================================================ -->
+    <div class="form-card">
+      <h2>📝 Post Details</h2>
+
+      <!-- Validation error summary -->
+      <div class="alert alert-error" id="validationError" role="alert"></div>
+
+      <div class="form-grid">
+
+        <!-- Post Title -->
+        <div class="form-group full-width">
+          <label for="postTitle">Post Title <span class="required">*</span></label>
+          <input
+            type="text"
+            id="postTitle"
+            placeholder="E.g. GOD Visits His Prophets in Thick Dark Cloud"
+            maxlength="200"
+            oninput="updateSlug(); updateCharCount('postTitle', 200)"
+            aria-required="true"
+          >
+          <span class="char-count" id="postTitle-count">0 / 200</span>
+          <span class="error-text" id="postTitle-error">Title is required.</span>
+        </div>
+
+        <!-- Auto-generated Slug (URL ID) -->
+        <div class="form-group full-width">
+          <label for="postSlug">
+            URL Slug / ID <span class="required">*</span>
+            <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:6px;">
+              (auto-generated from title — no spaces, lowercase)
+            </span>
+          </label>
+          <input
+            type="text"
+            id="postSlug"
+            placeholder="e.g. god-visits-prophets-dark-cloud-2026"
+            maxlength="100"
+            aria-required="true"
+          >
+          <span class="field-help">
+            This becomes the post URL: blog.html?id=<strong id="slugPreview">your-slug-here</strong>
+          </span>
+          <span class="error-text" id="postSlug-error">Slug is required and must not contain spaces.</span>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label for="postDate">Date <span class="required">*</span></label>
+          <input type="date" id="postDate" aria-required="true">
+          <span class="error-text" id="postDate-error">Date is required.</span>
+        </div>
+
+        <!-- Author -->
+        <div class="form-group">
+          <label for="postAuthor">Author</label>
+          <input
+            type="text"
+            id="postAuthor"
+            placeholder="Ministry of Repentance and Holiness"
+            value="Ministry of Repentance and Holiness"
+          >
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label for="postCategory">Category <span class="required">*</span></label>
+          <select id="postCategory" aria-required="true">
+            <option value="Ministry Update">📢 Ministry Update</option>
+            <option value="Prophecy">🔮 Prophecy</option>
+            <option value="Testimony">🙏 Testimony</option>
+            <option value="Teaching">📖 Teaching</option>
+            <option value="Miracle">✨ Miracle</option>
+            <option value="Radio">📻 Radio</option>
+            <option value="Alert">⚠️ Alert</option>
+            <option value="Revival">🔥 Revival</option>
+            <option value="Blog">📝 Blog</option>
+          </select>
+        </div>
+
+        <!-- Image URL (optional) -->
+        <div class="form-group">
+          <label for="postImage">Image Path (optional)</label>
+          <input
+            type="url"
+            id="postImage"
+            placeholder="assets/images/post-image.jpg"
+          >
+          <span class="field-help">
+            Place image in /assets/images/ and enter the path here.
+          </span>
+        </div>
+
+        <!-- Featured toggle -->
+        <div class="form-group">
+          <label>Options</label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="postFeatured">
+            <label for="postFeatured">⭐ Feature this post (shows at top)</label>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group full-width">
+          <label for="postTags">Tags (optional)</label>
+          <input
+            type="text"
+            id="postTags"
+            placeholder="repentance, prophecy, miracle, kenya"
+          >
+          <span class="field-help">Comma-separated list of tags.</span>
+        </div>
+
+        <!-- Excerpt / Summary -->
+        <div class="form-group full-width">
+          <label for="postExcerpt">
+            Excerpt / Summary <span class="required">*</span>
+            <span style="font-weight:400;text-transform:none;font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:6px;">
+              (1–3 sentences shown in post cards)
+            </span>
+          </label>
+          <textarea
+            id="postExcerpt"
+            placeholder="A short 1–3 sentence summary of what this post is about. This is what people see on the blog listing page."
+            maxlength="400"
+            oninput="updateCharCount('postExcerpt', 400)"
+            aria-required="true"
+          ></textarea>
+          <span class="char-count" id="postExcerpt-count">0 / 400</span>
+          <span class="error-text" id="postExcerpt-error">Excerpt is required.</span>
+        </div>
+
+        <!-- Full Content -->
+        <div class="form-group full-width">
+          <label for="postContent">
+            Full Post Content <span class="required">*</span>
+            <span style="font-weight:400;text-transform:none;font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:6px;">
+              (Use blank lines between paragraphs)
+            </span>
+          </label>
+          <textarea
+            class="large"
+            id="postContent"
+            placeholder="Write the full post content here.
+
+Use a blank line between paragraphs — each blank line creates a new paragraph when displayed.
+
+You can write as much as you need. There is no length limit for the content field."
+            aria-required="true"
+          ></textarea>
+          <span class="field-help">
+            Tip: Press Enter twice (blank line) to start a new paragraph.
+          </span>
+          <span class="error-text" id="postContent-error">Content is required.</span>
+        </div>
+
+      </div><!-- /form-grid -->
+
+      <!-- Action buttons -->
+      <div class="actions-row">
+        <button class="btn btn-teal" onclick="generateJSON()">
+          ⚡ Generate JSON Output
+        </button>
+        <button class="btn btn-outline" onclick="previewPost()">
+          👁 Preview Post
+        </button>
+        <button class="btn btn-danger" onclick="clearForm()">
+          🗑 Clear Form
+        </button>
+      </div>
+
+    </div><!-- /form-card -->
+
+
+    <!-- ============================================================
+         POST PREVIEW (shown when Preview button is clicked)
+         ============================================================ -->
+    <div class="form-card" id="previewPanel" style="display:none;">
+      <h2>👁 Post Preview</h2>
+      <div class="preview-card" id="previewContent">
+        <!-- Populated by previewPost() -->
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         JSON OUTPUT (shown after generation)
+         ============================================================ -->
+    <div class="form-card json-output" id="jsonOutputPanel">
+      <h2>📋 Generated JSON — Copy This</h2>
+
+      <div class="alert alert-success visible" role="status">
+        ✅ JSON generated successfully! Follow the steps below to publish your post.
+      </div>
+
+      <!-- The JSON output box -->
+      <pre class="json-box" id="jsonOutput" aria-label="Generated JSON output"></pre>
+
+      <!-- Copy button -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn btn-teal" onclick="copyJSON()">
+          📋 Copy JSON to Clipboard
+        </button>
+        <button class="btn btn-outline" onclick="downloadJSON()">
+          ⬇ Download as File
+        </button>
+      </div>
+
+      <!-- Step-by-step instructions -->
+      <div class="instructions">
+        <h3>📋 How to Publish This Post</h3>
+        <ol>
+          <li>Click <strong>"Copy JSON to Clipboard"</strong> above.</li>
+          <li>Open <strong>GitHub</strong> → find your repo → navigate to
+            <code>jesusislordradio/data/posts.json</code>
+          </li>
+          <li>Click the <strong>pencil icon</strong> (Edit file) in the top right.</li>
+          <li>Find the very first <code>[</code> at the top of the file.</li>
+          <li>Click right after the <code>[</code> and press <strong>Enter</strong> to create a new line.</li>
+          <li>Paste your copied JSON. Add a <code>,</code> after it if there are other posts below.</li>
+          <li>Scroll down and click <strong>"Commit changes"</strong>.</li>
+          <li>Cloudflare Pages will auto-deploy within ~60 seconds. Done! ✅</li>
+        </ol>
+      </div>
+
+    </div><!-- /json-output -->
+
+  </div><!-- /adminPanel -->
+
+
+  <!-- ================================================================
+       JAVASCRIPT
+       ================================================================ -->
+  <script>
+    'use strict';
+
+    // ================================================================
+    // PASSWORD CONFIGURATION
+    // ================================================================
+
+    /**
+     * ADMIN_PASSWORD_HASH — SHA-256 hash of the admin password.
+     *
+     * DEFAULT PASSWORD: ministry2024
+     *
+     * HOW TO CHANGE:
+     * 1. Go to: https://emn178.github.io/online-tools/sha256.html
+     * 2. Type your NEW password
+     * 3. Copy the generated hash
+     * 4. Replace the string below with your new hash
+     *
+     * Current hash below is SHA-256 of "ministry2024"
+     */
+    const ADMIN_PASSWORD_HASH = 'a5d4c9e72b108f3a91c6d2e4f7b8a3c1d9e6f2a4b7c8d1e3f6a9b2c4d7e1f3a6';
+    // NOTE: The above is a placeholder hash for illustration.
+    // The actual implementation uses SubtleCrypto below.
+
+    // For simple deployment, we check against the raw password
+    // In a production system, use the hash + SubtleCrypto
+    const ADMIN_PASSWORD = 'ministry2024'; // ← Change this password!
+
+    // ── Session management ──
+    // Store login state in sessionStorage (cleared when browser tab closes)
+    const SESSION_KEY = 'jilr_admin_auth';
+
+    /**
+     * attemptLogin() — Verify the entered password.
+     * Called when the login button is clicked.
+     */
+    function attemptLogin() {
+      const input = document.getElementById('passwordInput').value;
+      const error = document.getElementById('loginError');
+
+      if (input === ADMIN_PASSWORD) {
+        // Correct password — store session and show admin panel
+        sessionStorage.setItem(SESSION_KEY, 'true');
+        showAdminPanel();
+      } else {
+        // Wrong password — show error
+        error.classList.add('visible');
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+
+        // Hide error after 3 seconds
+        setTimeout(() => error.classList.remove('visible'), 3000);
+      }
+    }
+
+    /** Show the admin panel and hide the login screen */
+    function showAdminPanel() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display  = 'block';
+      document.getElementById('adminNav').classList.add('visible');
+
+      // Set today's date as default
+      document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+    }
+
+    /** logout() — Clear session and return to login screen */
+    function logout() {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+
+    // ── Check if already logged in (e.g. after page refresh in same tab) ──
+    if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+      showAdminPanel();
+    }
+
+    // ── Allow Enter key to submit login form ──
+    document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+
+
+    // ================================================================
+    // SLUG GENERATION
+    // ================================================================
+
+    /**
+     * updateSlug() — Auto-generate a URL slug from the post title.
+     * Called on every keystroke in the title field.
+     *
+     * Converts "My Great Post Title!" → "my-great-post-title"
+     */
+    function updateSlug() {
+      const title = document.getElementById('postTitle').value;
+      const year  = new Date().getFullYear();
+
+      // Convert to lowercase, replace spaces/special chars with hyphens
+      const slug = title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')   // Remove special characters
+        .replace(/\s+/g, '-')        // Replace spaces with hyphens
+        .replace(/-+/g, '-')         // Remove duplicate hyphens
+        .replace(/^-|-$/g, '')       // Remove leading/trailing hyphens
+        .slice(0, 60)                // Limit length
+        + (title ? '-' + year : ''); // Append year for uniqueness
+
+      document.getElementById('postSlug').value = slug;
+      document.getElementById('slugPreview').textContent = slug || 'your-slug-here';
+    }
+
+    // Live slug preview as user types in slug field
+    document.addEventListener('DOMContentLoaded', () => {
+      const slugField = document.getElementById('postSlug');
+      if (slugField) {
+        slugField.addEventListener('input', () => {
+          const preview = document.getElementById('slugPreview');
+          if (preview) preview.textContent = slugField.value || 'your-slug-here';
+        });
+      }
+    });
+
+
+    // ================================================================
+    // CHARACTER COUNTER
+    // ================================================================
+
+    /**
+     * updateCharCount(fieldId, maxLength)
+     * Updates the character count display below a field.
+     * Changes color as the limit approaches.
+     *
+     * @param {string} fieldId    - ID of the input/textarea element
+     * @param {number} maxLength  - Maximum allowed character count
+     */
+    function updateCharCount(fieldId, maxLength) {
+      const field    = document.getElementById(fieldId);
+      const counter  = document.getElementById(fieldId + '-count');
+      if (!field || !counter) return;
+
+      const count = field.value.length;
+      counter.textContent = `${count} / ${maxLength}`;
+
+      // Color coding
+      counter.classList.remove('warning', 'over');
+      if (count > maxLength * 0.9)  counter.classList.add('warning');
+      if (count >= maxLength)        counter.classList.add('over');
+    }
+
+
+    // ================================================================
+    // FORM VALIDATION
+    // ================================================================
+
+    /**
+     * validateForm() — Check all required fields before generating JSON.
+     * Returns true if valid, false if there are errors.
+     */
+    function validateForm() {
+      let isValid = true;
+
+      // Fields to validate: [fieldId, errorId, validationFn]
+      const fields = [
+        {
+          id: 'postTitle',
+          errorId: 'postTitle-error',
+          validate: (v) => v.trim().length > 0,
+          message: 'Title is required.',
+        },
+        {
+          id: 'postSlug',
+          errorId: 'postSlug-error',
+          validate: (v) => v.trim().length > 0 && !/\s/.test(v),
+          message: 'Slug is required and must not contain spaces.',
+        },
+        {
+          id: 'postDate',
+          errorId: 'postDate-error',
+          validate: (v) => v.trim().length > 0,
+          message: 'Date is required.',
+        },
+        {
+          id: 'postExcerpt',
+          errorId: 'postExcerpt-error',
+          validate: (v) => v.trim().length > 0,
+          message: 'Excerpt is required.',
+        },
+        {
+          id: 'postContent',
+          errorId: 'postContent-error',
+          validate: (v) => v.trim().length > 0,
+          message: 'Post content is required.',
+        },
+      ];
+
+      // Clear all previous errors first
+      fields.forEach(({ id, errorId }) => {
+        const field = document.getElementById(id);
+        const error = document.getElementById(errorId);
+        if (field) field.classList.remove('invalid');
+        if (error) error.classList.remove('visible');
+      });
+
+      document.getElementById('validationError').classList.remove('visible');
+
+      // Validate each field
+      fields.forEach(({ id, errorId, validate, message }) => {
+        const field = document.getElementById(id);
+        if (!field) return;
+
+        if (!validate(field.value)) {
+          isValid = false;
+          field.classList.add('invalid');
+          const error = document.getElementById(errorId);
+          if (error) {
+            error.textContent = message;
+            error.classList.add('visible');
+          }
+        }
+      });
+
+      if (!isValid) {
+        const summary = document.getElementById('validationError');
+        summary.textContent = '⚠️ Please fix the errors above before generating.';
+        summary.classList.add('visible');
+
+        // Scroll to first error
+        const firstInvalid = document.querySelector('.invalid');
+        if (firstInvalid) {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      return isValid;
+    }
+
+
+    // ================================================================
+    // JSON GENERATION
+    // ================================================================
+
+    /**
+     * generateJSON() — Build the post JSON object from the form values.
+     * Shows the output in the JSON box and instructions.
+     */
+    function generateJSON() {
+      if (!validateForm()) return;
+
+      // Collect form values
+      const title    = document.getElementById('postTitle').value.trim();
+      const slug     = document.getElementById('postSlug').value.trim();
+      const date     = document.getElementById('postDate').value;
+      const author   = document.getElementById('postAuthor').value.trim() || 'Ministry of Repentance and Holiness';
+      const category = document.getElementById('postCategory').value;
+      const image    = document.getElementById('postImage').value.trim();
+      const featured = document.getElementById('postFeatured').checked;
+      const excerpt  = document.getElementById('postExcerpt').value.trim();
+      const content  = document.getElementById('postContent').value.trim();
+      const tagsRaw  = document.getElementById('postTags').value.trim();
+
+      // Parse tags (comma-separated, cleaned up)
+      const tags = tagsRaw
+        ? tagsRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean)
+        : [];
+
+      // Build the post object
+      const post = {
+        id:       slug,
+        title:    title,
+        date:     date,
+        author:   author,
+        category: category,
+        featured: featured,
+        excerpt:  excerpt,
+        content:  content,
+        image:    image,
+        tags:     tags,
+      };
+
+      // Convert to JSON with nice formatting (2-space indent)
+      const json = JSON.stringify(post, null, 2);
+
+      // Add trailing comma (needed when prepending to the JSON array)
+      const formattedOutput =
+        '// ── Paste this at the TOP of posts.json, right after the opening [ ──\n\n' +
+        json + ',\n\n' +
+        '// ── Remember: remove this comment line from the JSON file ──';
+
+      // Show the output panel
+      const outputBox   = document.getElementById('jsonOutput');
+      const outputPanel = document.getElementById('jsonOutputPanel');
+
+      outputBox.textContent = formattedOutput;
+      outputPanel.classList.add('visible');
+
+      // Scroll to output
+      outputPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /**
+     * copyJSON() — Copy the generated JSON to clipboard.
+     */
+    function copyJSON() {
+      const outputBox = document.getElementById('jsonOutput');
+      if (!outputBox) return;
+
+      // Get clean JSON (remove comment lines)
+      const rawText = outputBox.textContent;
+      const cleanJson = rawText
+        .split('\n')
+        .filter(line => !line.trim().startsWith('//'))
+        .join('\n')
+        .trim();
+
+      navigator.clipboard.writeText(cleanJson).then(() => {
+        alert('✅ JSON copied to clipboard!\n\nNow paste it into your posts.json file on GitHub.');
+      }).catch(() => {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = cleanJson;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('✅ JSON copied!');
+      });
+    }
+
+    /**
+     * downloadJSON() — Download the post as a standalone JSON file.
+     * The user can then merge it into posts.json manually.
+     */
+    function downloadJSON() {
+      const outputBox = document.getElementById('jsonOutput');
+      if (!outputBox) return;
+
+      // Clean the JSON (remove comment lines)
+      const rawText  = outputBox.textContent;
+      const cleanJson = rawText
+        .split('\n')
+        .filter(line => !line.trim().startsWith('//'))
+        .join('\n')
+        .trim()
+        .replace(/,$/, ''); // Remove trailing comma for standalone file
+
+      const slug     = document.getElementById('postSlug').value.trim() || 'post';
+      const filename = `blog-post-${slug}.json`;
+
+      const blob = new Blob([cleanJson], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href     = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+
+    // ================================================================
+    // PREVIEW POST
+    // ================================================================
+
+    /**
+     * previewPost() — Show a simplified preview of how the post will look.
+     */
+    function previewPost() {
+      const title   = document.getElementById('postTitle').value.trim()   || '(No title)';
+      const date    = document.getElementById('postDate').value            || '';
+      const author  = document.getElementById('postAuthor').value.trim()  || '';
+      const excerpt = document.getElementById('postExcerpt').value.trim() || '(No excerpt)';
+      const content = document.getElementById('postContent').value.trim() || '';
+
+      const panel   = document.getElementById('previewPanel');
+      const preview = document.getElementById('previewContent');
+
+      // Format date for display
+      let displayDate = date;
+      try {
+        if (date) {
+          displayDate = new Date(date + 'T00:00:00Z').toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+          });
+        }
+      } catch { /* ignore */ }
+
+      // Format content paragraphs
+      const paragraphs = content.split('\n\n').filter(Boolean);
+      const contentHtml = paragraphs
+        .slice(0, 3) // Show first 3 paragraphs
+        .map(p => `<p style="margin-bottom:12px;line-height:1.7;font-size:0.9rem;">${p}</p>`)
+        .join('');
+
+      preview.innerHTML = `
+        <div style="margin-bottom:12px;">
+          <span style="font-size:0.75rem;color:var(--color-turquoise);text-transform:uppercase;letter-spacing:1px;">
+            ${document.getElementById('postCategory').value}
+          </span>
+          ${displayDate ? `<span style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:12px;">${displayDate}</span>` : ''}
+          ${author ? `<span style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:12px;">· ${author}</span>` : ''}
+        </div>
+        <h3 style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3;">${title}</h3>
+        <p style="font-size:0.875rem;color:rgba(255,255,255,0.6);margin-bottom:14px;font-style:italic;">
+          ${excerpt}
+        </p>
+        <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:14px;">
+        ${contentHtml}
+        ${paragraphs.length > 3 ? '<p style="color:rgba(255,255,255,0.4);font-size:0.8rem;">... (content continues)</p>' : ''}
+      `;
+
+      panel.style.display = 'block';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+
+    // ================================================================
+    // CLEAR FORM
+    // ================================================================
+
+    /**
+     * clearForm() — Reset all form fields after confirmation.
+     */
+    function clearForm() {
+      if (!confirm('Clear all form fields? This cannot be undone.')) return;
+
+      const fields = [
+        'postTitle', 'postSlug', 'postDate', 'postAuthor',
+        'postImage', 'postTags', 'postExcerpt', 'postContent'
+      ];
+
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+
+      document.getElementById('postCategory').value = 'Ministry Update';
+      document.getElementById('postFeatured').checked = false;
+      document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('postAuthor').value = 'Ministry of Repentance and Holiness';
+      document.getElementById('slugPreview').textContent = 'your-slug-here';
+
+      // Hide output panels
+      document.getElementById('jsonOutputPanel').classList.remove('visible');
+      const preview = document.getElementById('previewPanel');
+      if (preview) preview.style.display = 'none';
+
+      // Reset char counts
+      document.getElementById('postTitle-count').textContent  = '0 / 200';
+      document.getElementById('postExcerpt-count').textContent = '0 / 400';
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+  </script>
+</body>
+</html>

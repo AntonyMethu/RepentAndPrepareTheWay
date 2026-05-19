@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  prophecies.html — Fulfilled Prophecies Archive
+  ================================================================
+  Website: repentandpreparetheway.org
+
+  HOW TO ADD A NEW PROPHECY:
+  1. Find the correct section below (Fulfilled or Upcoming)
+  2. Copy one .prophecy-card <div> block
+  3. Update:
+     - data-category="..."  (earthquake|flood|war|aviation|disease|political|celestial|healing)
+     - The number in .prophecy-number
+     - The title text in .prophecy-title
+     - The href in .prophecy-link (YouTube video URL)
+     - The .prophecy-status class (fulfilled or pending)
+  4. Save, commit, push — Cloudflare deploys automatically.
+
+  CATEGORIES (for data-category attribute):
+  earthquake | flood | war | aviation | disease | political | celestial | healing | resurrection
+  ================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fulfilled Prophecies Archive (150+) — Repent &amp; Prepare The Way</title>
+  <meta name="description" content="Over 150 documented fulfilled prophecies — earthquakes, floods, wars, disease outbreaks, political events, healings, and celestial signs. All spoken before they happened.">
+  <meta name="keywords" content="fulfilled prophecy, prophet owuor prophecies, earthquake prophecy, ebola prophecy, israel war prophecy, end time signs">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.repentandpreparetheway.org/pages/prophecies.html">
+
+  <meta property="og:title"       content="Fulfilled Prophecies Archive — 150+ Documented Events">
+  <meta property="og:description" content="Every prophecy spoken before it happened. Documented, dated, and verified.">
+  <meta property="og:url"         content="https://www.repentandpreparetheway.org/pages/prophecies.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="theme-color" content="#0f268c">
+
+  <style>
+    /* ── Page-specific prophecy styles ── */
+
+    /* Search bar */
+    .prophecy-search-wrap {
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+      position: relative;
+    }
+
+    .prophecy-search-wrap input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-full);
+      color: var(--color-white);
+      font-family: var(--font-primary);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .prophecy-search-wrap input:focus {
+      border-color: var(--color-turquoise-dim);
+    }
+
+    .prophecy-search-wrap .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+      color: var(--color-text-muted);
+    }
+
+    /* Count badge */
+    #prophecyCount {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* No results message */
+    #noResults {
+      text-align: center;
+      padding: var(--space-2xl);
+      color: var(--color-text-muted);
+    }
+
+    /* Divider between sections */
+    .section-heading-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      margin: var(--space-2xl) 0 var(--space-xl);
+    }
+
+    .section-heading-bar h2 {
+      font-size: 1.25rem;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-heading-bar::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 1px solid var(--glass-border-accent);
+      color: var(--color-turquoise);
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-base);
+      z-index: var(--z-nav);
+      box-shadow: var(--shadow-md);
+    }
+
+    .back-to-top.visible { opacity: 1; pointer-events: all; }
+    .back-to-top:hover   { background: var(--color-primary-light); }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <!-- ================================================================
+       HEADER
+       ================================================================ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="site-logo" aria-label="Repent and Prepare The Way — Home">
+        <img src="../assets/images/logo.png" alt="Ministry logo" width="52" height="52">
+        <div class="site-logo-text">
+          <span class="logo-line1">Repentance &amp; Holiness</span>
+          <span class="logo-line2">Prepare The Way</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="mainNav" aria-label="Main navigation">
+        <a href="../index.html"            class="nav-link">Home</a>
+        <a href="about.html"               class="nav-link">About Us</a>
+        <a href="teachings.html"           class="nav-link">Teachings</a>
+        <a href="prophecies.html"          class="nav-link active" aria-current="page">Prophecies</a>
+        <a href="miracles.html"            class="nav-link">Miracles</a>
+        <a href="documents.html"           class="nav-link">Documents</a>
+        <a href="blog.html"                class="nav-link">Blog</a>
+        <a href="salvation.html"           class="nav-link">Salvation</a>
+        <a href="https://www.jesusislordradio.info/" class="nav-link sister-site" target="_blank" rel="noopener">📻 Radio</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="hero-badge" style="margin:0 auto var(--space-lg);background:rgba(255,255,0,0.08);border-color:rgba(255,255,0,0.25);color:var(--color-yellow);">
+      🔮 Prophecies Archive
+    </div>
+    <h1>Fulfilled <span class="accent-turquoise">Prophecies</span></h1>
+    <p style="color:var(--color-text-secondary);max-width:650px;margin:var(--space-md) auto 0;">
+      Over <strong style="color:var(--color-white);">150 documented prophecies</strong> spoken before they happened —
+      earthquakes, floods, wars, disease outbreaks, political upheavals, celestial signs, and healings.
+      Every one dated, recorded, and verified against world events.
+    </p>
+  </section>
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
+  <main id="main-content" style="padding: var(--space-xl) var(--space-xl) var(--space-3xl);">
+    <div class="container">
+
+      <!-- Stats row -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-md);max-width:700px;margin:0 auto var(--space-2xl);text-align:center;" class="reveal-stagger">
+        <div class="reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-lg);">
+          <div style="font-size:2.2rem;font-weight:900;color:var(--color-turquoise);font-family:var(--font-heading);">150+</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);">Fulfilled</div>
+        </div>
+        <div class="reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-lg);">
+          <div style="font-size:2.2rem;font-weight:900;color:var(--color-yellow);font-family:var(--font-heading);">20+</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);">Upcoming</div>
+        </div>
+        <div class="reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-lg);">
+          <div style="font-size:2.2rem;font-weight:900;color:var(--color-turquoise);font-family:var(--font-heading);">15+</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);">Years of Records</div>
+        </div>
+        <div class="reveal" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:var(--space-lg);">
+          <div style="font-size:2.2rem;font-weight:900;color:var(--color-yellow);font-family:var(--font-heading);">🌍</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-muted);">All Nations</div>
+        </div>
+      </div>
+
+      <!-- Search bar -->
+      <div class="prophecy-search-wrap reveal">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          id="prophecySearch"
+          placeholder="Search prophecies..."
+          aria-label="Search prophecies"
+        >
+      </div>
+
+      <!-- Category filter tabs -->
+      <!-- data-category must match the data-category on .prophecy-card elements below -->
+      <div class="prophecy-tabs reveal" role="group" aria-label="Filter by category">
+        <button class="prophecy-tab active" data-category="all"          onclick="filterProphecies('all', this)">All</button>
+        <button class="prophecy-tab"        data-category="earthquake"   onclick="filterProphecies('earthquake', this)">🌋 Earthquakes</button>
+        <button class="prophecy-tab"        data-category="flood"        onclick="filterProphecies('flood', this)">🌊 Floods</button>
+        <button class="prophecy-tab"        data-category="war"          onclick="filterProphecies('war', this)">⚔️ Wars</button>
+        <button class="prophecy-tab"        data-category="aviation"     onclick="filterProphecies('aviation', this)">✈️ Aviation</button>
+        <button class="prophecy-tab"        data-category="disease"      onclick="filterProphecies('disease', this)">🦠 Disease</button>
+        <button class="prophecy-tab"        data-category="political"    onclick="filterProphecies('political', this)">🏛️ Political</button>
+        <button class="prophecy-tab"        data-category="celestial"    onclick="filterProphecies('celestial', this)">🌟 Celestial</button>
+        <button class="prophecy-tab"        data-category="healing"      onclick="filterProphecies('healing', this)">✨ Healings</button>
+      </div>
+
+      <!-- Count display -->
+      <p id="prophecyCount" role="status" aria-live="polite">Showing all prophecies</p>
+
+      <!-- No results -->
+      <div id="noResults" class="hidden">
+        <p>No prophecies found for that search term.</p>
+        <button class="btn-secondary" onclick="clearProphecySearch()" style="margin-top:var(--space-md);padding:10px 24px;font-size:0.875rem;">Clear Search</button>
+      </div>
+
+      <!-- ============================================================
+           FULFILLED PROPHECIES — Section
+           ============================================================
+           HOW TO ADD: Copy one .prophecy-card block and paste at the
+           top of this section. Update all attributes and text.
+           ============================================================ -->
+      <div id="fulfilleds-heading" class="section-heading-bar reveal">
+        <h2>✅ <span class="accent-turquoise">Fulfilled</span> Prophecies</h2>
+      </div>
+
+      <div class="prophecy-grid" id="prophecyGrid">
+
+        <!-- ── PROPHECY CARD TEMPLATE ──
+             ATTRIBUTES TO UPDATE:
+             data-category = earthquake | flood | war | aviation | disease | political | celestial | healing
+             data-title     = full title text (used for search)
+             The number in .prophecy-number (sequential)
+             The link in .prophecy-link href (YouTube URL)
+        -->
+
+        <!-- 1. Earthquake -->
+        <div class="prophecy-card reveal" data-category="earthquake" data-title="Great earthquake Japan tsunami Pacific ring fire">
+          <div class="prophecy-number" aria-hidden="true">1</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Earthquake — Japan / Pacific Ring of Fire</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌋 Earthquake</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+earthquake+prophecy" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 2. Flood -->
+        <div class="prophecy-card reveal" data-category="flood" data-title="Great flood Africa East Africa Kenya">
+          <div class="prophecy-number" aria-hidden="true">2</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Devastating Flood — East Africa, Named Regions</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌊 Flood</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+flood+prophecy" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 3. Disease -->
+        <div class="prophecy-card reveal" data-category="disease" data-title="Ebola outbreak West Africa 2009 plague disease">
+          <div class="prophecy-number" aria-hidden="true">3</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Ebola Plague — Nov 2009 Prophecy, Fulfilled 2014</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🦠 Disease</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="documents.html" class="prophecy-link">Read PDF →</a>
+          </div>
+        </div>
+
+        <!-- 4. Political -->
+        <div class="prophecy-card reveal" data-category="political" data-title="Political upheaval leadership change Africa Kenya">
+          <div class="prophecy-number" aria-hidden="true">4</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Political Upheaval — Leadership Change, Named Nation</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🏛️ Political</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+political+prophecy" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 5. Aviation -->
+        <div class="prophecy-card reveal" data-category="aviation" data-title="Aviation disaster aircraft emergency plane">
+          <div class="prophecy-number" aria-hidden="true">5</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Aviation Distress — Aircraft Emergency, Days Before Event</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">✈️ Aviation</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+aviation+prophecy" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 6. Earthquake -->
+        <div class="prophecy-card reveal" data-category="earthquake" data-title="Great earthquake Haiti Caribbean Americas">
+          <div class="prophecy-number" aria-hidden="true">6</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Earthquake — Haiti / Caribbean Region</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌋 Earthquake</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+haiti+earthquake" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 7. Flood -->
+        <div class="prophecy-card reveal" data-category="flood" data-title="Great flood Pakistan Asia monsoon">
+          <div class="prophecy-number" aria-hidden="true">7</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Catastrophic Flood — Pakistan / South Asia</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌊 Flood</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+pakistan+flood" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 8. War -->
+        <div class="prophecy-card reveal" data-category="war" data-title="Middle East war conflict Israel Iran Arab nations">
+          <div class="prophecy-number" aria-hidden="true">8</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Middle East Conflict — Nations Named in Advance</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">⚔️ War</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+middle+east+war" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 9. Celestial -->
+        <div class="prophecy-card reveal" data-category="celestial" data-title="Blood moon solar eclipse celestial signs sky">
+          <div class="prophecy-number" aria-hidden="true">9</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Celestial Sign — Blood Moon / Solar Event Prophesied</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌟 Celestial</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=prophet+owuor+blood+moon+sign" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!-- 10. Healing -->
+        <div class="prophecy-card reveal" data-category="healing" data-title="Mass healing crusade cripples blind HIV AIDS">
+          <div class="prophecy-number" aria-hidden="true">10</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Mass Healings at Crusade — Cripples, Blind, HIV/AIDS</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">✨ Healing</span>
+              <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+            </div>
+            <a href="miracles.html" class="prophecy-link">View miracles →</a>
+          </div>
+        </div>
+
+        <!-- 11–30: Additional prophecy cards -->
+        <!-- NOTE TO WEBMASTER: Add more .prophecy-card divs here following the same pattern.
+             Each card needs:
+             - data-category="..."      for tab filtering
+             - data-title="..."         for search (lowercase keywords)
+             - A sequential number in .prophecy-number
+             - A YouTube link in .prophecy-link
+             - Correct .prophecy-status class (fulfilled or pending)
+        -->
+
+        <div class="prophecy-card reveal" data-category="earthquake" data-title="earthquake China Asia Sichuan tremor">
+          <div class="prophecy-number" aria-hidden="true">11</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Earthquake — China / Sichuan Region</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🌋 Earthquake</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="disease" data-title="cholera plague epidemic waterborne disease">
+          <div class="prophecy-number" aria-hidden="true">12</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Cholera Outbreak — Region and Scale Foretold</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🦠 Disease</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="political" data-title="election nation president prime minister government">
+          <div class="prophecy-number" aria-hidden="true">13</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">National Election Outcome — Result Prophesied in Advance</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🏛️ Political</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="flood" data-title="flood Nigeria West Africa water disaster coastal">
+          <div class="prophecy-number" aria-hidden="true">14</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Devastating Flood — Nigeria / West Africa Coastal Region</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🌊 Flood</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="war" data-title="war Russia Ukraine Eastern Europe conflict invasion">
+          <div class="prophecy-number" aria-hidden="true">15</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">War in Eastern Europe — Nations Named Before Conflict</div>
+            <div class="prophecy-meta"><span class="prophecy-category">⚔️ War</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="earthquake" data-title="earthquake Turkey Syria Middle East tremor destruction">
+          <div class="prophecy-number" aria-hidden="true">16</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Catastrophic Earthquake — Turkey / Syria Border Region</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🌋 Earthquake</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="aviation" data-title="aviation aircraft engine failure emergency landing">
+          <div class="prophecy-number" aria-hidden="true">17</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Aviation Emergency — Engine Failure, Specific Airline Named</div>
+            <div class="prophecy-meta"><span class="prophecy-category">✈️ Aviation</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="healing" data-title="resurrection dead raised miracle crusade East Africa">
+          <div class="prophecy-number" aria-hidden="true">18</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Resurrection — Dead Raised at East Africa Crusade</div>
+            <div class="prophecy-meta"><span class="prophecy-category">✨ Healing</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="miracles.html#resurrection" class="prophecy-link">View testimony →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="celestial" data-title="sign sky cross cloud heaven rainbow Nakuru Kenya">
+          <div class="prophecy-number" aria-hidden="true">19</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Sign in the Sky — Cross of Light Appears Over Crusade Ground</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🌟 Celestial</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="disease" data-title="pandemic global disease COVID coronavirus respiratory">
+          <div class="prophecy-number" aria-hidden="true">20</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Global Pandemic — Respiratory Disease, Worldwide Spread</div>
+            <div class="prophecy-meta"><span class="prophecy-category">🦠 Disease</span><span class="prophecy-status fulfilled">✓ Fulfilled</span></div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+          </div>
+        </div>
+
+        <!--
+          ============================================================
+          ADD MORE PROPHECIES HERE (21–150+)
+          ============================================================
+          Copy the block below and update data-category, data-title,
+          the number, title text, and YouTube link href.
+
+          <div class="prophecy-card reveal" data-category="CATEGORY" data-title="keywords for search">
+            <div class="prophecy-number" aria-hidden="true">21</div>
+            <div class="prophecy-body">
+              <div class="prophecy-title">Prophecy Title Here</div>
+              <div class="prophecy-meta">
+                <span class="prophecy-category">🌋 Category</span>
+                <span class="prophecy-status fulfilled">✓ Fulfilled</span>
+              </div>
+              <a href="YOUTUBE_URL" class="prophecy-link" target="_blank" rel="noopener">Watch video →</a>
+            </div>
+          </div>
+          ============================================================
+        -->
+
+      </div><!-- /#prophecyGrid -->
+
+
+      <!-- ============================================================
+           UPCOMING / WATCH PROPHECIES — Section
+           ============================================================ -->
+      <div id="upcoming" class="section-heading-bar reveal" style="margin-top:var(--space-3xl);">
+        <h2>⏳ <span class="accent-yellow">Upcoming</span> — Watch &amp; Pray</h2>
+      </div>
+
+      <p class="reveal" style="max-width:700px;margin:0 auto var(--space-xl);text-align:center;color:var(--color-text-secondary);">
+        These prophecies have been spoken but await fulfilment.
+        We urge all people to pray, repent, and watch.
+      </p>
+
+      <div class="prophecy-grid reveal-stagger" id="upcomingGrid">
+
+        <div class="prophecy-card reveal" data-category="war" data-title="Israel Iran war Middle East great war nations">
+          <div class="prophecy-number" style="background:rgba(255,255,0,0.1);border-color:rgba(255,255,0,0.3);color:var(--color-yellow);" aria-hidden="true">🔔</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great War — Israel, Iran, and Surrounding Nations</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">⚔️ War / Conflict</span>
+              <span class="prophecy-status pending">⏳ Watch</span>
+            </div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">View prophecy →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="earthquake" data-title="great earthquake major seismic event worldwide">
+          <div class="prophecy-number" style="background:rgba(255,255,0,0.1);border-color:rgba(255,255,0,0.3);color:var(--color-yellow);" aria-hidden="true">🔔</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Earthquake — Major Seismic Event, Scale Unprecedented</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌋 Earthquake</span>
+              <span class="prophecy-status pending">⏳ Watch</span>
+            </div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">View prophecy →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="celestial" data-title="great sign sky heavens celestial phenomenon worldwide">
+          <div class="prophecy-number" style="background:rgba(255,255,0,0.1);border-color:rgba(255,255,0,0.3);color:var(--color-yellow);" aria-hidden="true">🔔</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Sign in the Heavens — Visible Worldwide</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🌟 Celestial</span>
+              <span class="prophecy-status pending">⏳ Watch</span>
+            </div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">View prophecy →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="disease" data-title="great plague disease outbreak nations global sickness">
+          <div class="prophecy-number" style="background:rgba(255,255,0,0.1);border-color:rgba(255,255,0,0.3);color:var(--color-yellow);" aria-hidden="true">🔔</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">A New Disease Outbreak — Nations Named, Scale Described</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🦠 Disease</span>
+              <span class="prophecy-status pending">⏳ Watch</span>
+            </div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">View prophecy →</a>
+          </div>
+        </div>
+
+        <div class="prophecy-card reveal" data-category="political" data-title="great revival awakening global church repentance nations">
+          <div class="prophecy-number" style="background:rgba(0,255,255,0.1);border-color:rgba(0,255,255,0.3);color:var(--color-turquoise);" aria-hidden="true">🔔</div>
+          <div class="prophecy-body">
+            <div class="prophecy-title">Great Global Revival — Nations Turn to GOD in Repentance</div>
+            <div class="prophecy-meta">
+              <span class="prophecy-category">🔥 Revival</span>
+              <span class="prophecy-status pending">⏳ Promised</span>
+            </div>
+            <a href="https://www.youtube.com/@repentpreparetheway" class="prophecy-link" target="_blank" rel="noopener">View prophecy →</a>
+          </div>
+        </div>
+
+      </div><!-- /#upcomingGrid -->
+
+      <!-- View YouTube channel CTA -->
+      <div class="text-center reveal" style="margin-top:var(--space-2xl);">
+        <a href="https://www.youtube.com/@repentpreparetheway" class="btn-primary" target="_blank" rel="noopener">
+          📺 Watch All Videos on YouTube →
+        </a>
+        <a href="documents.html" class="btn-secondary" style="margin-left:var(--space-md);">
+          📄 Download PDF Documents
+        </a>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- Footer (condensed) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/images/logo.png" alt="Ministry logo" width="48" height="48">
+          <div>
+            <div style="font-family:var(--font-heading);font-weight:700;color:var(--color-white);">Ministry of Repentance and Holiness</div>
+            <div style="font-size:0.8rem;color:var(--color-turquoise);">Nakuru, Kenya</div>
+          </div>
+        </div>
+        <p>Preparing the Church for the Glorious Coming of the Messiah.</p>
+        <a href="https://www.jesusislordradio.info/" class="footer-sister-link" target="_blank" rel="noopener">📻 Jesus is LORD Radio →</a>
+      </div>
+      <div>
+        <h3 class="footer-heading">Pages</h3>
+        <nav class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="prophecies.html">Prophecies</a>
+          <a href="miracles.html">Miracles</a>
+          <a href="documents.html">Documents</a>
+          <a href="salvation.html">Salvation Prayer</a>
+          <a href="blog.html">Blog</a>
+        </nav>
+      </div>
+      <div>
+        <h3 class="footer-heading">Follow</h3>
+        <div class="footer-links">
+          <a href="https://x.com/Prophet_DrOwuor" target="_blank" rel="noopener">𝕏 @Prophet_DrOwuor</a>
+          <a href="https://facebook.com/ProphetDrDavidOwuor" target="_blank" rel="noopener">Facebook Page</a>
+          <a href="https://www.youtube.com/@repentpreparetheway" target="_blank" rel="noopener">▶ YouTube Channel</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; <span id="copyrightYear"></span> Ministry of Repentance and Holiness.</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/blog.js"></script>
+
+  <script>
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+    // ── Prophecy Search ──
+    const searchInput = document.getElementById('prophecySearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.prophecy-card[data-title]');
+        let count = 0;
+
+        cards.forEach(card => {
+          const title    = (card.dataset.title || '').toLowerCase();
+          const cardText = card.textContent.toLowerCase();
+          const match    = !query || title.includes(query) || cardText.includes(query);
+
+          // Respect category filter too
+          const currentCat = document.querySelector('.prophecy-tab.active')?.dataset.category || 'all';
+          const cardCat    = card.dataset.category || '';
+          const catMatch   = currentCat === 'all' || cardCat === currentCat;
+
+          card.style.display = (match && catMatch) ? '' : 'none';
+          if (match && catMatch) count++;
+        });
+
+        const countEl  = document.getElementById('prophecyCount');
+        const noResult = document.getElementById('noResults');
+        if (countEl)  countEl.textContent = `${count} prophecy match${count !== 1 ? 'es' : ''}`;
+        if (noResult) noResult.classList.toggle('hidden', count > 0);
+      });
+
+      // Style focus
+      searchInput.addEventListener('focus', () => { searchInput.style.borderColor = 'var(--color-turquoise-dim)'; });
+      searchInput.addEventListener('blur',  () => { searchInput.style.borderColor = 'var(--glass-border)'; });
+    }
+
+    // Clear search button handler
+    window.clearProphecySearch = function() {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+      }
+    };
+
+    // Update prophecy count on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const total = document.querySelectorAll('#prophecyGrid .prophecy-card').length;
+      const countEl = document.getElementById('prophecyCount');
+      if (countEl) countEl.textContent = `Showing all ${total} fulfilled prophecies`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  salvation.html — Salvation Prayer
+  ================================================================
+  Website: repentandpreparetheway.org
+
+  HOW TO UPDATE THE PRAYER TEXT:
+  Search for <!-- PRAYER TEXT --> and edit the prayer content.
+
+  HOW TO UPDATE FOLLOW-UP INSTRUCTIONS:
+  Search for <!-- FOLLOW UP --> and edit those sections.
+  ================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salvation Prayer — Repent &amp; Prepare The Way</title>
+  <meta name="description" content="Pray the prayer of salvation and give your life to Jesus Christ. The Messiah is coming — now is the time to repent and prepare.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="theme-color" content="#0f268c">
+
+  <style>
+    /* Prayer page specific styles */
+    .prayer-container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Large scripture display */
+    .scripture-highlight {
+      text-align: center;
+      padding: var(--space-2xl);
+      background: rgba(255, 255, 0, 0.04);
+      border: 1px solid rgba(255, 255, 0, 0.15);
+      border-radius: var(--radius-xl);
+      margin: var(--space-2xl) 0;
+    }
+
+    .scripture-highlight .verse-text {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: var(--color-text-primary);
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+    }
+
+    .scripture-highlight .verse-ref {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-yellow);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* The prayer card itself */
+    .prayer-card {
+      background: rgba(15, 38, 140, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      margin: var(--space-2xl) 0;
+      position: relative;
+    }
+
+    .prayer-card::before {
+      content: '🙏';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      background: var(--color-primary);
+      padding: 0 var(--space-md);
+    }
+
+    .prayer-card h2 {
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--color-turquoise);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* PRAYER TEXT — the actual prayer content */
+    .prayer-text {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--color-text-primary);
+      font-style: italic;
+    }
+
+    .prayer-text p {
+      color: var(--color-text-primary);
+      font-size: 1.05rem;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Prose sections */
+    .content-prose {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .content-prose strong {
+      color: var(--color-white);
+    }
+
+    /* Step-by-step next steps */
+    .next-steps {
+      counter-reset: steps;
+      margin: var(--space-xl) 0;
+    }
+
+    .next-step {
+      display: flex;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .next-step-number {
+      counter-increment: steps;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      background: rgba(0,255,255,0.1);
+      border: 1px solid var(--color-turquoise-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--color-turquoise);
+      font-size: 1rem;
+    }
+
+    .next-step-number::before {
+      content: counter(steps);
+    }
+
+    .next-step-text h3 {
+      font-size: 1rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .next-step-text p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="site-logo" aria-label="Home">
+        <img src="../assets/images/logo.png" alt="Ministry logo" width="52" height="52">
+        <div class="site-logo-text">
+          <span class="logo-line1">Repentance &amp; Holiness</span>
+          <span class="logo-line2">Prepare The Way</span>
+        </div>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="mainNav" aria-label="Main navigation">
+        <a href="../index.html"   class="nav-link">Home</a>
+        <a href="about.html"      class="nav-link">About Us</a>
+        <a href="teachings.html"  class="nav-link">Teachings</a>
+        <a href="prophecies.html" class="nav-link">Prophecies</a>
+        <a href="miracles.html"   class="nav-link">Miracles</a>
+        <a href="documents.html"  class="nav-link">Documents</a>
+        <a href="blog.html"       class="nav-link">Blog</a>
+        <a href="salvation.html"  class="nav-link active" aria-current="page">Salvation</a>
+        <a href="https://www.jesusislordradio.info/" class="nav-link sister-site" target="_blank" rel="noopener">📻 Radio</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="page-hero" style="text-align:center;padding:var(--space-2xl) var(--space-xl) var(--space-lg);">
+    <div class="hero-badge" style="margin:0 auto var(--space-lg);background:rgba(255,255,0,0.08);border-color:rgba(255,255,0,0.25);color:var(--color-yellow);">
+      🙏 Salvation Prayer
+    </div>
+    <h1>Give Your Life to <span class="accent-yellow">Jesus Christ</span></h1>
+    <p style="color:var(--color-text-secondary);max-width:600px;margin:var(--space-md) auto 0;">
+      The Messiah is coming. Now — today — is the day of salvation.
+      GOD loves you and desires that you be part of His glorious Bride.
+    </p>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content" style="padding:0 var(--space-xl) var(--space-3xl);">
+    <div class="container">
+      <div class="prayer-container">
+
+        <!-- Opening scripture -->
+        <div class="scripture-highlight reveal">
+          <p class="verse-text">
+            "For GOD so loved the world that he gave his one and only Son,
+            that whoever believes in him shall not perish but have eternal life."
+          </p>
+          <div class="verse-ref">— John 3:16</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="reveal">
+          <p class="content-prose">
+            <strong>GOD loves you.</strong> He created you for a purpose, and He desires that
+            you know Him personally — not as a distant force, but as a loving Father.
+          </p>
+          <p class="content-prose">
+            But sin has separated us from GOD. Every person who has ever lived has sinned
+            and fallen short of the glory of GOD (Romans 3:23). The consequence of sin is
+            death — eternal separation from the One who made us.
+          </p>
+          <p class="content-prose">
+            But GOD, in His great love and mercy, provided a way. He sent His only Son,
+            <strong>Jesus Christ</strong>, to take the punishment for our sin.
+            Jesus died on the cross, bearing every sin you have ever committed.
+            He was buried. And on the third day, <strong>He rose from the dead</strong> —
+            conquering sin and death forever.
+          </p>
+          <p class="content-prose">
+            Now He offers you the free gift of salvation. Not because you deserve it.
+            Not because you are good enough. But because of His grace.
+          </p>
+          <p class="content-prose">
+            <strong>If you are ready to receive this gift</strong>, pray the prayer below
+            — sincerely, from your heart. GOD hears every prayer, and He is faithful to
+            receive all who come to Him.
+          </p>
+        </div>
+
+        <!-- The Salvation Prayer -->
+        <!-- PRAYER TEXT — Edit the prayer content here -->
+        <div class="prayer-card reveal">
+          <h2>Pray This Prayer</h2>
+          <div class="prayer-text" role="article" aria-label="Salvation prayer">
+            <p>
+              "Heavenly Father, I come before You today acknowledging that I am a sinner.
+              I have fallen short of Your glory and I deserve the consequences of my sin.
+              But I believe that Your Son, Jesus Christ, died on the cross for my sins,
+              was buried, and rose again on the third day.
+            </p>
+            <p>
+              LORD Jesus, I ask You to forgive me of all my sins — every thought, word, and deed
+              that has been contrary to Your holy standard. I turn away from my sin right now.
+              I repent with my whole heart.
+            </p>
+            <p>
+              I confess with my mouth that <strong>Jesus Christ is LORD</strong>,
+              and I believe in my heart that GOD raised Him from the dead.
+              I receive You now as my personal LORD and Saviour.
+            </p>
+            <p>
+              Come into my heart, LORD Jesus. Be the LORD of my life — my thoughts, my words,
+              my relationships, my future. Fill me with Your Holy Spirit and lead me in Your ways.
+            </p>
+            <p>
+              I thank You, Father, that I am now Your child.
+              I thank You for the gift of eternal life.
+              Help me to walk in repentance and holiness,
+              to prepare for the day when You return in glory.
+            </p>
+            <p>
+              In the precious Name of Jesus Christ, I pray. <strong>Amen.</strong>"
+            </p>
+          </div>
+        </div>
+
+        <!-- Confirmation scripture -->
+        <div class="scripture-highlight reveal">
+          <p class="verse-text">
+            "If you declare with your mouth, 'Jesus is Lord,' and believe in your heart
+            that GOD raised him from the dead, you will be saved.
+            For it is with your heart that you believe and are justified,
+            and it is with your mouth that you profess your faith and are saved."
+          </p>
+          <div class="verse-ref">— Romans 10:9–10</div>
+        </div>
+
+        <!-- What happens next -->
+        <!-- FOLLOW UP — Edit the next steps content here -->
+        <div class="reveal">
+          <h2 style="font-size:1.5rem;margin-bottom:var(--space-xl);text-align:center;">
+            What Happens <span class="accent-turquoise">Next?</span>
+          </h2>
+
+          <div class="next-steps">
+            <div class="next-step">
+              <div class="next-step-number" aria-hidden="true"></div>
+              <div class="next-step-text">
+                <h3>Read the Bible Daily</h3>
+                <p>Begin reading GOD's Word every day. Start with the Gospel of John, then Romans. The Bible is your food for the new life in Christ.</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-number" aria-hidden="true"></div>
+              <div class="next-step-text">
+                <h3>Pray Every Day</h3>
+                <p>Talk to GOD — He hears you. Prayer is your conversation with your Heavenly Father. Come to Him in the morning, throughout the day, and at night.</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-number" aria-hidden="true"></div>
+              <div class="next-step-text">
+                <h3>Find a Church That Preaches Holiness</h3>
+                <p>Connect with a local church that preaches genuine repentance, holiness, and the return of Christ. You need fellowship with other believers.</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-number" aria-hidden="true"></div>
+              <div class="next-step-text">
+                <h3>Walk in Repentance Daily</h3>
+                <p>Salvation is not a one-time event — it is a daily walk. Examine your heart. Confess and turn from sin daily. GOD is faithful to cleanse you (1 John 1:9).</p>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-number" aria-hidden="true"></div>
+              <div class="next-step-text">
+                <h3>Prepare for the Return of Jesus Christ</h3>
+                <p>The Messiah is coming soon. Read the prophecies, study the signs of the times, and live with your heart ready. He is coming for a holy and prepared Bride.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="text-center reveal" style="margin-top:var(--space-2xl);">
+          <a href="teachings.html" class="btn-primary">📖 Read Ministry Teachings</a>
+          <a href="documents.html" class="btn-secondary" style="margin-left:var(--space-md);">📄 Download PDF Documents</a>
+        </div>
+
+      </div><!-- /prayer-container -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/images/logo.png" alt="Ministry logo" width="48" height="48">
+          <div><div style="font-family:var(--font-heading);font-weight:700;color:var(--color-white);">Ministry of Repentance and Holiness</div><div style="font-size:0.8rem;color:var(--color-turquoise);">Nakuru, Kenya</div></div>
+        </div>
+        <p>Preparing the Church for the Glorious Coming of the Messiah.</p>
+        <a href="https://www.jesusislordradio.info/" class="footer-sister-link" target="_blank" rel="noopener">📻 Jesus is LORD Radio →</a>
+      </div>
+      <div>
+        <h3 class="footer-heading">Pages</h3>
+        <nav class="footer-links">
+          <a href="../index.html">Home</a><a href="prophecies.html">Prophecies</a>
+          <a href="miracles.html">Miracles</a><a href="documents.html">Documents</a>
+          <a href="salvation.html">Salvation Prayer</a><a href="blog.html">Blog</a>
+        </nav>
+      </div>
+      <div>
+        <h3 class="footer-heading">Follow</h3>
+        <div class="footer-links">
+          <a href="https://x.com/Prophet_DrOwuor" target="_blank" rel="noopener">𝕏 @Prophet_DrOwuor</a>
+          <a href="https://facebook.com/ProphetDrDavidOwuor" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.youtube.com/@repentpreparetheway" target="_blank" rel="noopener">▶ YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; <span id="copyrightYear"></span> Ministry of Repentance and Holiness.</p>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script>document.getElementById('copyrightYear').textContent = new Date().getFullYear();</script>
+</body>
+</html>

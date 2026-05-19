@@ -1,0 +1,1382 @@
+/* ================================================================
+   style.css — Repent and Prepare The Way Ministry Website
+   ================================================================
+   Ministry of Repentance and Holiness
+   Site: repentandpreparetheway.org
+
+   TABLE OF CONTENTS:
+   1.  CSS Custom Properties (Brand Variables)
+   2.  Reset & Base Styles
+   3.  Animated Gradient Background
+   4.  Typography
+   5.  Navigation / Header
+   6.  Buttons
+   7.  Hero Section
+   8.  Breaking News Ticker
+   9.  Prophecy Archive / Video Grid
+   10. Documents / PDF Library
+   11. Miracles Section
+   12. Blog Section
+   13. Salvation Prayer Section
+   14. Social Media Links
+   15. Contact Section
+   16. Footer
+   17. Page-specific Overrides (sub-pages)
+   18. Utility Classes
+   19. Animations & Keyframes
+   20. Responsive Breakpoints
+
+   NOTE: This stylesheet shares the same brand variables as
+   jesusislordradio/css/style.css. If you update brand colors,
+   update BOTH files (search and replace the hex values).
+   ================================================================ */
+
+
+/* ================================================================
+   1. CSS CUSTOM PROPERTIES (BRAND VARIABLES)
+   ================================================================
+   IDENTICAL to jesusislordradio/css/style.css — kept in sync.
+   To update brand colors, change the values here AND in the
+   radio site's style.css.
+   ================================================================ */
+
+:root {
+  /* ── Primary brand colors ── */
+  --color-primary:        #0f268c;
+  --color-primary-dark:   #0a1a6e;
+  --color-primary-mid:    #162f9e;
+  --color-primary-light:  #1a3aaa;
+  --color-primary-deep:   #060f52;
+
+  /* ── Accent colors ── */
+  --color-turquoise:      #00ffff;
+  --color-turquoise-dim:  rgba(0, 255, 255, 0.6);
+  --color-turquoise-glow: rgba(0, 255, 255, 0.12);
+  --color-yellow:         #ffff00;
+  --color-yellow-dim:     rgba(255, 255, 0, 0.7);
+
+  /* ── Text colors ── */
+  --color-white:          #ffffff;
+  --color-text-primary:   rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.75);
+  --color-text-muted:     rgba(255, 255, 255, 0.50);
+
+  /* ── Glassmorphism ── */
+  --glass-bg:             rgba(255, 255, 255, 0.07);
+  --glass-bg-hover:       rgba(255, 255, 255, 0.12);
+  --glass-border:         rgba(255, 255, 255, 0.15);
+  --glass-border-accent:  rgba(0, 255, 255, 0.30);
+
+  /* ── Functional ── */
+  --color-live-red:       #ff3b3b;
+  --color-success:        #00e676;
+
+  /* ── Spacing ── */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* ── Typography ── */
+  --font-primary: 'Roboto', 'Franklin Gothic Medium', Arial, sans-serif;
+  --font-heading: 'Roboto Condensed', 'Franklin Gothic Heavy', Arial Narrow, sans-serif;
+  --font-mono:    'Roboto Mono', 'Courier New', monospace;
+
+  /* ── Borders ── */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   32px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 600ms ease;
+
+  /* ── Shadows ── */
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md:   0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 16px 64px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(0, 255, 255, 0.2);
+
+  /* ── Z-index ── */
+  --z-base:     1;
+  --z-nav:      100;
+  --z-dropdown: 200;
+  --z-modal:    300;
+}
+
+
+/* ================================================================
+   2. RESET & BASE STYLES
+   ================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+ul, ol { list-style: none; }
+img, video { max-width: 100%; height: auto; display: block; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+
+/* ================================================================
+   3. ANIMATED GRADIENT BACKGROUND
+   ================================================================
+   Same effect as the radio site — they feel like one ecosystem.
+   Slightly different shade order for subtle differentiation.
+   ================================================================ */
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: linear-gradient(
+    -45deg,
+    #060f52,
+    #0a1a6e,
+    #0f268c,
+    #0c1f80,
+    #162f9e,
+    #1a3aaa
+  );
+  background-size: 400% 400%;
+  animation: gradientFlow 28s ease infinite; /* Slightly slower on ministry site */
+  background-attachment: fixed;
+}
+
+@keyframes gradientFlow {
+  0%   { background-position: 0%   50%; }
+  25%  { background-position: 100% 0%;  }
+  50%  { background-position: 100% 100%; }
+  75%  { background-position: 0%   100%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* Subtle particle overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 65%, rgba(0,255,255,0.08) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 75%, rgba(255,255,0,0.06) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 15%, rgba(0,255,255,0.10) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * { position: relative; z-index: var(--z-base); }
+
+
+/* ================================================================
+   4. TYPOGRAPHY
+   ================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+h4 { font-size: 1.2rem; }
+
+p { font-size: 1rem; color: var(--color-text-secondary); line-height: 1.7; }
+
+.accent-turquoise { color: var(--color-turquoise); }
+.accent-yellow    { color: var(--color-yellow); }
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.section-title h2 {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-sm);
+}
+
+.section-title p {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: var(--space-md) auto 0;
+  background: linear-gradient(90deg, var(--color-turquoise), var(--color-yellow));
+  border-radius: var(--radius-full);
+}
+
+/* Scripture verse styling — used throughout the ministry site */
+.scripture-verse {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-yellow-dim);
+  padding: var(--space-md) var(--space-xl);
+  border-left: 3px solid var(--color-yellow);
+  margin: var(--space-lg) 0;
+  background: rgba(255, 255, 0, 0.04);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.scripture-verse cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
+
+/* ================================================================
+   5. NAVIGATION / HEADER
+   ================================================================
+   Same structure as radio site — consistent UX across both.
+   ================================================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: rgba(15, 38, 140, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: box-shadow var(--transition-base);
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.site-logo img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--color-turquoise-glow));
+}
+
+.site-logo-text .logo-line1 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.site-logo-text .logo-line2 {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--color-turquoise);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-sm) 12px;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-turquoise);
+  background: var(--color-turquoise-glow);
+  outline: none;
+}
+
+.nav-link.active { color: var(--color-turquoise); }
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 2px;
+  background: var(--color-turquoise);
+  border-radius: var(--radius-full);
+}
+
+/* Sister site link in nav — stands out */
+.nav-link.sister-site {
+  background: rgba(255, 255, 0, 0.08);
+  border: 1px solid rgba(255, 255, 0, 0.3);
+  color: var(--color-yellow);
+  border-radius: var(--radius-sm);
+}
+
+.nav-link.sister-site:hover {
+  background: rgba(255, 255, 0, 0.15);
+  box-shadow: 0 0 16px rgba(255, 255, 0, 0.15);
+}
+
+/* Dropdown */
+.nav-dropdown { position: relative; }
+
+.nav-dropdown > .nav-link::after {
+  content: '▾';
+  font-size: 0.7rem;
+  transition: transform var(--transition-fast);
+}
+
+.nav-dropdown:hover > .nav-link::after,
+.nav-dropdown.open > .nav-link::after { transform: rotate(180deg); }
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: rgba(10, 26, 110, 0.97);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-sm);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  color: var(--color-turquoise);
+  background: var(--color-turquoise-glow);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ================================================================
+   6. BUTTONS — Same as radio site
+   ================================================================ */
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  padding: 13px 30px;
+  background: var(--color-turquoise);
+  color: var(--color-primary-deep);
+  font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  border-radius: var(--radius-full); border: 2px solid transparent;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,255,255,0.4); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  padding: 13px 30px;
+  background: transparent; color: var(--color-white);
+  font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  border-radius: var(--radius-full); border: 2px solid rgba(255,255,255,0.4);
+  transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+}
+.btn-secondary:hover { border-color: var(--color-white); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+.btn-yellow {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  padding: 13px 30px;
+  background: var(--color-yellow); color: #1a1a00;
+  font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  border-radius: var(--radius-full); border: 2px solid transparent;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.btn-yellow:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,0,0.3); }
+
+/* Download button variant */
+.btn-download {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  padding: 10px 22px;
+  background: rgba(0,255,255,0.1); color: var(--color-turquoise);
+  font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  border-radius: var(--radius-full); border: 1px solid var(--color-turquoise-dim);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.btn-download:hover { background: rgba(0,255,255,0.2); box-shadow: 0 0 12px rgba(0,255,255,0.2); }
+
+
+/* ================================================================
+   7. HERO SECTION
+   ================================================================ */
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,255,0,0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-lg);
+  background: rgba(255, 255, 0, 0.08);
+  border: 1px solid rgba(255, 255, 0, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: var(--space-xl);
+  animation: fadeInDown 0.8s ease both;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: var(--space-lg);
+  animation: fadeInDown 0.8s ease 0.1s both;
+}
+
+.hero-title .highlight-teal   { color: var(--color-turquoise); text-shadow: 0 0 30px rgba(0,255,255,0.4); }
+.hero-title .highlight-yellow { color: var(--color-yellow); text-shadow: 0 0 30px rgba(255,255,0,0.4); }
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--color-text-secondary);
+  max-width: 650px;
+  margin: 0 auto var(--space-lg);
+  line-height: 1.7;
+  animation: fadeInDown 0.8s ease 0.2s both;
+}
+
+.hero-scripture {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-yellow-dim);
+  max-width: 550px;
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 3px solid var(--color-yellow);
+  text-align: left;
+  animation: fadeInDown 0.8s ease 0.3s both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  animation: fadeInDown 0.8s ease 0.4s both;
+}
+
+
+/* ================================================================
+   8. BREAKING NEWS TICKER — Same as radio site
+   ================================================================ */
+
+.news-ticker {
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: var(--space-sm) 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticker-label {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  background: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-yellow);
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: flex;
+  width: fit-content;
+  padding-left: 220px;
+  animation: tickerScroll 45s linear infinite;
+}
+
+.ticker-track:hover { animation-play-state: paused; }
+
+.ticker-item {
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  padding: 0 var(--space-2xl);
+}
+
+.ticker-item a { color: var(--color-turquoise); font-weight: 600; transition: color var(--transition-fast); }
+.ticker-item a:hover { color: var(--color-yellow); }
+
+
+/* ================================================================
+   9. PROPHECY ARCHIVE / VIDEO GRID
+   ================================================================
+   The 150+ prophecy list uses a grid of compact link-cards
+   instead of a wall of plain anchor tags.
+   ================================================================ */
+
+/* Section padding used on all full-width sections */
+.section-pad {
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+/* ── Prophecy category tabs ── */
+.prophecy-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+}
+
+.prophecy-tab {
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.prophecy-tab.active,
+.prophecy-tab:hover {
+  background: var(--color-turquoise);
+  color: var(--color-primary-deep);
+  border-color: var(--color-turquoise);
+}
+
+/* ── Prophecy grid ── */
+.prophecy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Individual prophecy entry card */
+.prophecy-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+}
+
+.prophecy-card:hover {
+  border-color: var(--glass-border-accent);
+  background: var(--glass-bg-hover);
+  transform: translateY(-2px);
+}
+
+/* Number badge */
+.prophecy-number {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--color-turquoise-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-turquoise);
+  flex-shrink: 0;
+}
+
+.prophecy-body { flex: 1; min-width: 0; }
+
+.prophecy-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-white);
+  margin-bottom: 4px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prophecy-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.prophecy-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-turquoise);
+}
+
+.prophecy-status {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.prophecy-status.fulfilled {
+  background: rgba(0, 230, 118, 0.1);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.prophecy-status.pending {
+  background: rgba(255, 255, 0, 0.1);
+  color: var(--color-yellow);
+  border: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+.prophecy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-turquoise);
+  margin-top: 6px;
+  transition: gap var(--transition-fast);
+}
+
+.prophecy-link:hover { gap: 8px; }
+
+
+/* ================================================================
+   10. DOCUMENTS / PDF LIBRARY
+   ================================================================ */
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Each PDF document card */
+.doc-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+}
+
+.doc-card:hover {
+  border-color: var(--glass-border-accent);
+  background: var(--glass-bg-hover);
+  transform: translateY(-4px);
+}
+
+.doc-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.doc-card-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+  flex: 1;
+}
+
+.doc-card-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+
+.doc-card-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+
+/* ================================================================
+   11. MIRACLES SECTION
+   ================================================================ */
+
+.miracles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.miracle-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+
+.miracle-card:hover {
+  border-color: var(--glass-border-accent);
+  transform: translateY(-4px);
+}
+
+/* YouTube facade inside miracle card */
+.miracle-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-primary-dark);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.miracle-video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.miracle-card:hover .miracle-video img {
+  transform: scale(1.04);
+}
+
+/* Play overlay on miracle videos */
+.miracle-video .play-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  transition: background var(--transition-base);
+}
+
+.miracle-card:hover .play-overlay {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.play-btn-circle {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+  transition: transform var(--transition-fast);
+}
+
+.miracle-card:hover .play-btn-circle {
+  transform: scale(1.1);
+}
+
+.miracle-body {
+  padding: var(--space-lg);
+}
+
+.miracle-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-yellow);
+  margin-bottom: var(--space-xs);
+}
+
+.miracle-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.3;
+  margin-bottom: var(--space-sm);
+}
+
+.miracle-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+
+/* ================================================================
+   12. BLOG SECTION (same as radio site)
+   ================================================================ */
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.blog-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-accent);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.blog-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.blog-card-image-placeholder {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.blog-card-body {
+  padding: var(--space-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.blog-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-turquoise);
+  padding: 2px 8px;
+  background: var(--color-turquoise-glow);
+  border-radius: var(--radius-full);
+}
+
+.blog-date { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.blog-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+}
+
+.blog-card-excerpt {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: var(--space-md);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-turquoise);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: gap var(--transition-fast);
+  margin-top: auto;
+}
+
+.blog-card-readmore:hover { gap: 8px; }
+
+
+/* ================================================================
+   13. SALVATION PRAYER SECTION
+   ================================================================ */
+
+.salvation-section {
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+}
+
+.salvation-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255, 255, 0, 0.04);
+  border: 1px solid rgba(255, 255, 0, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+}
+
+.salvation-card h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--color-yellow);
+  margin-bottom: var(--space-md);
+}
+
+.salvation-card p {
+  margin-bottom: var(--space-lg);
+  color: var(--color-text-secondary);
+}
+
+
+/* ================================================================
+   14. SOCIAL MEDIA LINKS
+   ================================================================ */
+
+.social-section {
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  min-width: 140px;
+  transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+}
+
+.social-link:hover {
+  border-color: var(--glass-border-accent);
+  background: var(--glass-bg-hover);
+  transform: translateY(-4px);
+}
+
+.social-link .social-icon { font-size: 2rem; }
+.social-link .social-name { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--color-white); text-transform: uppercase; letter-spacing: 1px; }
+.social-link .social-handle { font-size: 0.8rem; color: var(--color-turquoise); }
+
+
+/* ================================================================
+   15. CONTACT SECTION
+   ================================================================ */
+
+.contact-section { padding: var(--space-3xl) var(--space-xl); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.contact-item:hover {
+  border-color: var(--glass-border-accent);
+  background: var(--glass-bg-hover);
+}
+
+.contact-icon { font-size: 2rem; margin-bottom: var(--space-md); display: block; }
+.contact-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--color-text-muted); margin-bottom: var(--space-xs); }
+.contact-value { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--color-white); }
+.contact-value a { color: var(--color-turquoise); transition: opacity var(--transition-fast); }
+.contact-value a:hover { opacity: 0.8; }
+
+
+/* ================================================================
+   16. FOOTER
+   ================================================================ */
+
+.site-footer {
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid var(--glass-border);
+  padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.footer-brand .footer-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.footer-brand .footer-logo img { width: 48px; height: 48px; object-fit: contain; }
+.footer-brand p { font-size: 0.875rem; color: var(--color-text-muted); max-width: 300px; line-height: 1.7; }
+
+.footer-heading {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-turquoise);
+  margin-bottom: var(--space-lg);
+}
+
+.footer-links { display: flex; flex-direction: column; gap: var(--space-sm); }
+.footer-links a { font-size: 0.875rem; color: var(--color-text-muted); transition: color var(--transition-fast); }
+.footer-links a:hover { color: var(--color-white); }
+
+/* Sister site link in footer — yellow on this site (opposite of radio site) */
+.footer-sister-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(255, 255, 0, 0.06);
+  border: 1px solid rgba(255, 255, 0, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--color-yellow);
+  font-weight: 600;
+  transition: background var(--transition-base);
+  margin-top: var(--space-lg);
+}
+
+.footer-sister-link:hover { background: rgba(255, 255, 0, 0.12); }
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: var(--space-2xl) auto 0;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.footer-copyright { font-size: 0.8rem; color: var(--color-text-muted); }
+
+.footer-social { display: flex; gap: var(--space-md); }
+
+.footer-social a {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.footer-social a:hover {
+  border-color: var(--color-turquoise-dim);
+  background: var(--color-turquoise-glow);
+}
+
+
+/* ================================================================
+   17. PAGE-SPECIFIC: Sub-page hero (smaller)
+   ================================================================ */
+
+.page-hero {
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.page-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  margin-bottom: var(--space-md);
+}
+
+
+/* ================================================================
+   18. UTILITY CLASSES
+   ================================================================ */
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-xl); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 0 var(--space-xl); }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--glass-border); border-top-color: var(--color-turquoise); border-radius: 50%; animation: spin 0.8s linear infinite; margin: var(--space-xl) auto; }
+.text-center { text-align: center; }
+.hidden  { display: none !important; }
+.visible { display: block !important; }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+.reveal-stagger > *:nth-child(1) { transition-delay: 0.0s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 0.2s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 0.3s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 0.4s; }
+.reveal-stagger > *:nth-child(6) { transition-delay: 0.5s; }
+
+
+/* ================================================================
+   19. ANIMATIONS
+   ================================================================ */
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp   { from { opacity: 0; transform: translateY( 20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn     { from { opacity: 0; } to { opacity: 1; } }
+@keyframes livePulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+
+/* ================================================================
+   20. RESPONSIVE BREAKPOINTS
+   ================================================================ */
+
+@media (min-width: 1024px) {
+  .nav-toggle { display: none; }
+}
+
+@media (max-width: 1023px) {
+  .nav-toggle { display: flex; }
+
+  .site-nav {
+    position: fixed;
+    top: 0; right: -100%;
+    width: min(300px, 85vw);
+    height: 100vh;
+    background: rgba(10, 26, 110, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px var(--space-xl) var(--space-xl);
+    gap: var(--space-xs);
+    transition: right var(--transition-base);
+    overflow-y: auto;
+    z-index: var(--z-dropdown);
+    border-left: 1px solid var(--glass-border);
+  }
+
+  body.nav-open .site-nav { right: 0; }
+
+  .nav-link { width: 100%; padding: var(--space-md) var(--space-lg); font-size: 1rem; border-bottom: 1px solid var(--glass-border); }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 0 var(--space-md);
+  }
+
+  .footer-inner { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 479px) {
+  .header-inner { padding: var(--space-md); }
+  .hero { padding: var(--space-2xl) var(--space-md); }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-secondary, .btn-yellow { width: 100%; justify-content: center; }
+  .section-pad { padding: var(--space-2xl) var(--space-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; background-position: 0% 50%; }
+  .news-ticker .ticker-track { animation: none; }
+  .reveal, .reveal.revealed { opacity: 1; transform: none; transition: none; }
+}

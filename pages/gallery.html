@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery — Ministry of Repentance &amp; Holiness</title>
+  <meta name="description" content="Photo gallery from the Ministry of Repentance and Holiness crusades, revivals, and miracle services.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"><meta name="theme-color" content="#0f268c">
+  <style>
+    /*
+      PHOTO GALLERY STYLES
+      HOW TO ADD PHOTOS:
+      1. Place image files in /assets/images/gallery/
+      2. Add a new <figure> block inside .gallery-grid below
+      3. Update src, alt text, and caption
+    */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-md);
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: transform var(--transition-base), border-color var(--transition-base);
+    }
+    .gallery-item:hover { transform: scale(1.02); border-color: var(--glass-border-accent); }
+    .gallery-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .gallery-item figcaption { padding: var(--space-md); font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.4; }
+    /* Lightbox overlay */
+    #lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:var(--space-xl); }
+    #lightbox.open { display:flex; }
+    #lightbox img { max-width:100%; max-height:90vh; object-fit:contain; border-radius:var(--radius-md); }
+    #lightboxClose { position:absolute; top:20px; right:24px; color:#fff; font-size:2rem; cursor:pointer; background:none; border:none; }
+    #lightboxCaption { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.8); font-size:0.9rem; text-align:center; max-width:600px; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="site-logo"><img src="../assets/images/logo.png" alt="Ministry logo" width="52" height="52"><div class="site-logo-text"><span class="logo-line1">Repentance &amp; Holiness</span><span class="logo-line2">Prepare The Way</span></div></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav"><span></span><span></span><span></span></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About Us</a><a href="teachings.html" class="nav-link">Teachings</a><a href="prophecies.html" class="nav-link">Prophecies</a><a href="miracles.html" class="nav-link">Miracles</a><a href="documents.html" class="nav-link">Documents</a><a href="blog.html" class="nav-link">Blog</a><a href="salvation.html" class="nav-link">Salvation</a>
+        <a href="https://www.jesusislordradio.info/" class="nav-link sister-site" target="_blank" rel="noopener">📻 Radio</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-badge" style="margin:0 auto var(--space-lg);">📷 Photo Gallery</div>
+    <h1>Ministry <span class="accent-turquoise">Gallery</span></h1>
+    <p style="color:var(--color-text-secondary);max-width:600px;margin:var(--space-md) auto 0;">Photos from crusades, revival meetings, and miracle services across Kenya and beyond.</p>
+  </section>
+
+  <main id="main-content" style="padding:var(--space-xl) var(--space-xl) var(--space-3xl);">
+    <div class="container">
+      <!--
+        HOW TO ADD PHOTOS:
+        1. Place image file in ../assets/images/gallery/
+        2. Copy one <figure> block and update src, alt, and figcaption
+      -->
+      <div class="gallery-grid reveal-stagger">
+
+        <!-- Placeholder gallery items — replace src with actual images -->
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Ministry crusade gathering">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">⛺</div>
+          <figcaption>Ministry crusade gathering — thousands gathered to hear the Word of GOD</figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Healing service">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a6e,#1a3aaa);display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">✨</div>
+          <figcaption>Healing service — the power of GOD manifested among the people</figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Cloud of Glory">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#162f9e,#060f52);display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">☁️</div>
+          <figcaption>The cloud of GOD's glory visible over the crusade grounds</figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Prayer service">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--color-primary),var(--color-primary-light));display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">🙏</div>
+          <figcaption>Corporate prayer — the entire congregation in intercession</figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Worship">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0c1f80,#0f268c);display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">🎵</div>
+          <figcaption>Worship at the crusade — songs of repentance and praise</figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="View: Baptism service">
+          <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a6e,#162f9e);display:flex;align-items:center;justify-content:center;font-size:3rem;" aria-hidden="true">🌊</div>
+          <figcaption>Baptism service — new believers publicly declaring their faith</figcaption>
+        </figure>
+
+      </div>
+
+      <p class="reveal" style="text-align:center;margin-top:var(--space-xl);font-size:0.875rem;color:var(--color-text-muted);">
+        ℹ️ <strong style="color:var(--color-white);">Webmaster note:</strong> Add actual photos by placing image files in <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;">/assets/images/gallery/</code> and updating the &lt;figure&gt; elements above.
+      </p>
+
+    </div>
+  </main>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightboxClose" onclick="closeLightbox()" aria-label="Close image viewer">✕</button>
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="footer-logo"><img src="../assets/images/logo.png" alt="Ministry logo" width="48" height="48"><div><div style="font-family:var(--font-heading);font-weight:700;color:var(--color-white);">Ministry of Repentance and Holiness</div><div style="font-size:0.8rem;color:var(--color-turquoise);">Nakuru, Kenya</div></div></div><p>Preparing the Church for the Glorious Coming of the Messiah.</p><a href="https://www.jesusislordradio.info/" class="footer-sister-link" target="_blank" rel="noopener">📻 Jesus is LORD Radio →</a></div>
+      <div><h3 class="footer-heading">Pages</h3><nav class="footer-links"><a href="../index.html">Home</a><a href="prophecies.html">Prophecies</a><a href="miracles.html">Miracles</a><a href="documents.html">Documents</a><a href="salvation.html">Salvation</a><a href="blog.html">Blog</a></nav></div>
+      <div><h3 class="footer-heading">Follow</h3><div class="footer-links"><a href="https://x.com/Prophet_DrOwuor" target="_blank" rel="noopener">𝕏 @Prophet_DrOwuor</a><a href="https://facebook.com/ProphetDrDavidOwuor" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@repentpreparetheway" target="_blank" rel="noopener">▶ YouTube</a></div></div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copyright">&copy; <span id="copyrightYear"></span> Ministry of Repentance and Holiness.</p></div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script>
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+    function openLightbox(fig) {
+      const img     = fig.querySelector('img');
+      const caption = fig.querySelector('figcaption');
+      const lb      = document.getElementById('lightbox');
+      const lbImg   = document.getElementById('lightboxImg');
+      const lbCap   = document.getElementById('lightboxCaption');
+      if (img) { lbImg.src = img.src; lbImg.alt = img.alt || ''; }
+      if (caption) lbCap.textContent = caption.textContent;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(item); } });
+    });
+  </script>
+</body>
+</html>

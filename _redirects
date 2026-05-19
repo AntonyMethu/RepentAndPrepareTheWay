@@ -1,8 +1,0 @@
-# Cloudflare Pages _redirects
-# Redirects old URLs from original sites to new pages
-# Format: /old-path  /new-path  301
-
-# Old WebAcappella page filenames → new clean URLs
-/crbst_4.html          /repentandpreparetheway/pages/gallery.html        301
-/crbst_6.html          /repentandpreparetheway/pages/about.html           301
-/salvationprayer.html  /repentandpreparetheway/pages/salvation.html       301
